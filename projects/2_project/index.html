@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Alejandro Paez | Computer Vision</title>
+    <title>Alejandro Paez | FPGA-Accelerated 1-D Time-Domain Convolution</title>
     <meta name="author" content="Alejandro Paez" />
-    <meta name="description" content="Anything involving images" />
-    <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
+    <meta name="description" content="A high-throughput FPGA convolution accelerator with a custom DRAM DMA interface, clock-domain crossing, and a fully pipelined multiply-add datapath" />
+    <meta name="keywords" content="FPGA, VHDL, digital design, hardware acceleration, convolution, Zedboard" />
 
 
     <!-- Bootstrap & MDB -->
@@ -53,7 +53,7 @@
       <!-- Nav Bar -->
       <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
         <div class="container">
-          <a class="navbar-brand title font-weight-lighter" href="https://apaezs.github.io/"><span class="font-weight-bold">Spencer</span>   Pao</a>
+          <a class="navbar-brand title font-weight-lighter" href="https://apaezs.github.io/"><span class="font-weight-bold">Alejandro</span>   Paez</a>
           <!-- Navbar Toggle -->
           <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -99,107 +99,94 @@
         <div class="post">
 
           <header class="post-header">
-            <h1 class="post-title">Computer Vision</h1>
-            <p class="post-description">Anything involving images</p>
+            <h1 class="post-title">FPGA-Accelerated 1-D Time-Domain Convolution</h1>
+            <p class="post-description">A high-throughput FPGA convolution accelerator with a custom DRAM DMA interface, clock-domain crossing, and a fully pipelined multiply-add datapath.</p>
           </header>
 
           <article>
-            <p>Every picture is worth 1,000 words. Well, in this case the thousands of words and many hours were put into these projects.</p>
+            <h2 id="project-overview">Project Overview</h2>
+            <div class="row">
+              <div class="col-md-8">
+                <p>This project implements a hardware-accelerated 1-D time-domain convolution engine on the Xilinx Zedboard, targeting large performance gains over a software CPU implementation. The design exploits massive parallelism and pipelining to stream data directly from DRAM, compute convolution in hardware, and write results back to memory.</p>
 
-<p>I have a list of computer vision projects with all the source code <a href="https://github.com/apaezs/ComputerVision" target="_blank" rel="noopener noreferrer">here</a></p>
+                <p>The system is split into two major components:</p>
+                <ul>
+                  <li>A custom DRAM read DMA engine with safe clock-domain crossing</li>
+                  <li>A fully unrolled, pipelined convolution datapath supporting kernels up to 128 elements</li>
+                </ul>
 
-<p>More is to come. There are many applications that can be done. How exciting!</p>
+                <p>The final design achieves up to <strong>~16× speedup</strong> on large workloads.</p>
+              </div>
+              <div class="col-md-4">
+                <figure class="figure">
+                  <img src="/assets/img/32.jpg" class="img-fluid rounded" alt="FPGA Convolution Accelerator project image">
+                </figure>
+              </div>
+            </div>
 
-<hr>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-      <a href="https://youtu.be/rCgy4d2pyyA" target="_blank" rel="noopener noreferrer">
-        <figure>
+            <hr>
 
-  <picture>
-    <!-- <source media="(max-width: 480px)" srcset="/assets/img/Optical-480.webp" />
-    <source media="(max-width: 800px)" srcset="/assets/img/Optical-800.webp" />
-    <source media="(max-width: 1400px)" srcset="/assets/img/Optical-1400.webp" />
-    -->
+            <h2 id="platform--tools">Platform & Tools</h2>
+            <ul>
+              <li><strong>Board:</strong> Xilinx Zedboard (Zynq-7000)</li>
+              <li><strong>Clocks:</strong>
+                <ul>
+                  <li>DRAM / DMA domain: 100 MHz</li>
+                  <li>User / convolution domain: 70 MHz</li>
+                </ul>
+              </li>
+              <li><strong>Languages:</strong> VHDL (primary), C++</li>
+              <li><strong>Tools:</strong> Vivado, Questa</li>
+            </ul>
 
-    <!-- Fallback to the original file -->
-    <img class="img-fluid rounded z-depth-1" src="/assets/img/Optical.png" title="example image">
+            <hr>
 
-  </picture>
+            <h2 id="system-architecture">System Architecture</h2>
+            
+            <h3 id="high-level-dataflow">High-Level Dataflow</h3>
+            <p><strong>DRAM → DMA Read Engine → Signal Buffer → Convolution Pipeline → Output DRAM</strong></p>
+            
+            <p>All transfers and control signals safely cross clock domains using dual flop synchronizers, handshake synchronizers, and dual-clock FIFO synchronizers.</p>
 
-</figure>
+            <h3 id="dram-read-dma-engine">DRAM Read DMA Engine</h3>
+            <p>The custom DMA engine efficiently streams data from DRAM into the convolution pipeline. It handles:</p>
+            <ul>
+              <li>Burst transfers for optimal memory bandwidth utilization</li>
+              <li>Clock-domain crossing from the 100 MHz DRAM domain to the 70 MHz user domain</li>
+              <li>Address generation and transaction management</li>
+              <li>Flow control and backpressure handling</li>
+            </ul>
 
-      </a>
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-      <a href="https://youtu.be/nCgd9lrmYwE" target="_blank" rel="noopener noreferrer">
-        <figure>
+            <h3 id="convolution-accelerator">Convolution Accelerator</h3>
+            <p>The convolution datapath features:</p>
+            <ul>
+              <li>Fully unrolled pipeline architecture for maximum throughput</li>
+              <li>Support for convolution kernels up to 128 elements</li>
+              <li>Pipelined multiply-add operations with minimal latency</li>
+              <li>Efficient signal buffering to maintain continuous data flow</li>
+              <li>Optimized resource utilization for the Zynq-7000 fabric</li>
+            </ul>
 
-  <picture>
-    <!-- <source media="(max-width: 480px)" srcset="/assets/img/Deep%20Q-Network-480.webp" />
-    <source media="(max-width: 800px)" srcset="/assets/img/Deep%20Q-Network-800.webp" />
-    <source media="(max-width: 1400px)" srcset="/assets/img/Deep%20Q-Network-1400.webp" />
-    -->
+            <hr>
 
-    <!-- Fallback to the original file -->
-    <img class="img-fluid rounded z-depth-1" src="/assets/img/Deep%20Q-Network.png" title="example image">
+            <h2 id="key-features">Key Features</h2>
+            <ul>
+              <li><strong>Custom DRAM Interface:</strong> Direct memory access with optimized burst transfers</li>
+              <li><strong>Clock-Domain Crossing:</strong> Safe synchronization between asynchronous clock domains</li>
+              <li><strong>Fully Pipelined Datapath:</strong> Maximum throughput with minimal latency</li>
+              <li><strong>Scalable Architecture:</strong> Supports kernels from small to large (up to 128 elements)</li>
+              <li><strong>High Performance:</strong> Up to 16× speedup over CPU implementation</li>
+            </ul>
 
-  </picture>
+            <hr>
 
-</figure>
-
-      </a>
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-      <a href="https://youtu.be/QVY9BSj1Rro" target="_blank" rel="noopener noreferrer">
-        <figure>
-
-  <picture>
-    <!-- <source media="(max-width: 480px)" srcset="/assets/img/GANS-480.webp" />
-    <source media="(max-width: 800px)" srcset="/assets/img/GANS-800.webp" />
-    <source media="(max-width: 1400px)" srcset="/assets/img/GANS-1400.webp" />
-    -->
-
-    <!-- Fallback to the original file -->
-    <img class="img-fluid rounded z-depth-1" src="/assets/img/GANS.png" title="example image">
-
-  </picture>
-
-</figure>
-
-      </a>
-    </div>
-</div>
-<div class="caption">
-    Optical Character Recognition, Deep Q Networks &amp; Reinforcement Learning, GANS
-</div>
-<hr>
-
-<p>Can I call myself the next Pablo Picasso? Well, maybe my computer can come close to Picasso’s greatness.</p>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-      <a href="https://youtu.be/pvihWoaoWIM" target="_blank" rel="noopener noreferrer">
-        <figure>
-
-  <picture>
-    <!-- <source media="(max-width: 480px)" srcset="/assets/img/A_Computer_Creates_Abstract_Art-480.webp" />
-    <source media="(max-width: 800px)" srcset="/assets/img/A_Computer_Creates_Abstract_Art-800.webp" />
-    <source media="(max-width: 1400px)" srcset="/assets/img/A_Computer_Creates_Abstract_Art-1400.webp" />
-    -->
-
-    <!-- Fallback to the original file -->
-    <img class="img-fluid rounded z-depth-1" src="/assets/img/A_Computer_Creates_Abstract_Art.png" title="A Computer Creates Abstract ARt">
-
-  </picture>
-
-</figure>
-
-      </a>
-    </div>
-</div>
-<div class="caption">
-    I created art and I can't even draw a straight line!
-</div>
+            <h2 id="performance-results">Performance Results</h2>
+            <p>The FPGA accelerator demonstrates significant performance improvements:</p>
+            <ul>
+              <li><strong>Speedup:</strong> Up to ~16× faster than software CPU implementation</li>
+              <li><strong>Throughput:</strong> Optimized for large workloads with continuous data streaming</li>
+              <li><strong>Latency:</strong> Low-latency processing through pipelined architecture</li>
+            </ul>
 
           </article>
 
@@ -248,4 +235,3 @@
     
   </body>
 </html>
-
