@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Alejandro Paez | Data Science</title>
+    <title>Alejandro Paez | G8RTOS Bowl</title>
     <meta name="author" content="Alejandro Paez" />
-    <meta name="description" content="Encompasses Data Science applications" />
-    <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
+    <meta name="description" content="A real-time American football game built from scratch on a TI Tiva microcontroller using a custom preemptive RTOS" />
+    <meta name="keywords" content="embedded systems, RTOS, microcontroller, TI Tiva, real-time operating system" />
 
 
     <!-- Bootstrap & MDB -->
@@ -53,7 +53,7 @@
       <!-- Nav Bar -->
       <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
         <div class="container">
-          <a class="navbar-brand title font-weight-lighter" href="https://apaezs.github.io/"><span class="font-weight-bold">Spencer</span>   Pao</a>
+          <a class="navbar-brand title font-weight-lighter" href="https://apaezs.github.io/"><span class="font-weight-bold">Alejandro</span>   Paez</a>
           <!-- Navbar Toggle -->
           <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -99,43 +99,102 @@
         <div class="post">
 
           <header class="post-header">
-            <h1 class="post-title">Data Science</h1>
-            <p class="post-description">Encompasses Data Science applications</p>
+            <h1 class="post-title">G8RTOS Bowl</h1>
+            <p class="post-description">A real-time American football game built from scratch on a TI Tiva microcontroller using a custom preemptive RTOS, featuring concurrent gameplay, graphics, audio, and input handling.</p>
           </header>
 
           <article>
-            <p>This project is geared toward highlighting the theory and applications for popular traditional Data Science methods that you typically see taught in Undergraduate or Master/PHD programs. This <a href="https://github.com/apaezs/Data_Science" target="_blank" rel="noopener noreferrer">Data Science Github</a> encompasses the current methods I had completed.</p>
+            <h2 id="project-overview">Project Overview</h2>
+            <p>G8RTOS Bowl is a full embedded systems capstone project that combines a custom real-time operating system with a complete, playable American football game. The project runs on a TI Tiva™ TM4C123 LaunchPad + Multimod and demonstrates real-world RTOS concepts such as preemptive scheduling, semaphores, FIFOs, periodic and aperiodic events, and dynamic threads, all under real timing and hardware constraints.</p>
 
-<hr>
-<p>Project currently supports the following implementations; Some of these projects are either in <b>R</b> or <b>Python.</b></p>
-<ul>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/ARIMA" target="_blank" rel="noopener noreferrer">ARIMA</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Bayesian%20Regression" target="_blank" rel="noopener noreferrer">Bayesian Regression</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Data%20Imputations" target="_blank" rel="noopener noreferrer">Data Imputations</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Data%20Wrangling" target="_blank" rel="noopener noreferrer">Data Wrangling</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/GRU" target="_blank" rel="noopener noreferrer">GRU (Gated Recurrent Unit)</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/KNN" target="_blank" rel="noopener noreferrer">KNN (K Nearest Neighbor)</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Linear%20Regression" target="_blank" rel="noopener noreferrer">Linear Regression</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Logistic%20Regression" target="_blank" rel="noopener noreferrer">Logistic Regression</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Multiple%20Linear%20Regression" target="_blank" rel="noopener noreferrer">Multiple Linear Regression</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Naive%20Bayes" target="_blank" rel="noopener noreferrer">Naive Bayes</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Principal%20Components" target="_blank" rel="noopener noreferrer">Principal Components</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/RNN" target="_blank" rel="noopener noreferrer">RNN (Recurrent Neural Networks)</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Recommendation%20Systems" target="_blank" rel="noopener noreferrer">Recommendation Systems</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Sampling%20Methods" target="_blank" rel="noopener noreferrer">Sampling Methods</a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/Visualizations_R" target="_blank" rel="noopener noreferrer">Visualizations in <b> R </b></a></li>
-  <li><a href="https://github.com/apaezs/Data_Science/tree/main/XGBoost" target="_blank" rel="noopener noreferrer">XGBoost</a></li>
-</ul>
+            <p>The game includes animated players, route-based AI movement, real-time collision detection, joystick-controlled gameplay, sound effects, and a full football state machine (downs, drives, scoring, kickoffs, turnovers).</p>
 
-<p>Natural Language Processing: <b> Python </b></p>
-<ul>
-  <li><a href="https://github.com/apaezs/Natural-Language-Processing/tree/main/Question%20Answering%20Modeling" target="_blank" rel="noopener noreferrer">Question Answering (QA)</a></li>
-  <li><a href="https://github.com/apaezs/Natural-Language-Processing/tree/main/Transformers" target="_blank" rel="noopener noreferrer">Transformers</a></li>
-  <li><a href="https://github.com/apaezs/Natural-Language-Processing/tree/main/BERT" target="_blank" rel="noopener noreferrer">Bidirectional Encoder Representations (BERT)</a></li>
-  <li><a href="https://github.com/apaezs/Natural-Language-Processing/tree/main/Question%20Answering%20Modeling" target="_blank" rel="noopener noreferrer">Named Entity Recognition (NER)</a></li>
-  <li><a href="https://github.com/apaezs/Natural-Language-Processing/tree/main/Sentiment_Analysis" target="_blank" rel="noopener noreferrer">Sentiment Analysis</a></li>
-  <li><a href="https://github.com/apaezs/Natural-Language-Processing/tree/main/Text_Preprocessing" target="_blank" rel="noopener noreferrer">Text Preprocessing</a></li>
-</ul>
+            <hr>
+
+            <h2 id="hardware--platform">Hardware & Platform</h2>
+            <ul>
+              <li><strong>MCU:</strong> TI TM4C123GH6PM (ARM Cortex-M4F)</li>
+              <li><strong>Display:</strong> ST7789 LCD (SPI)</li>
+              <li><strong>Inputs:</strong> Analog joystick + push buttons (GPIO + I2C expander)</li>
+              <li><strong>Audio:</strong> UART-based sound trigger system</li>
+              <li><strong>Peripherals Used:</strong> SPI, UART, ADC, GPIO, I2C, timers, interrupts</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="system-architecture">System Architecture</h2>
+            
+            <h3 id="custom-rtos-built-from-scratch-g8rtos">Custom RTOS Built from Scratch (G8RTOS)</h3>
+            <ul>
+              <li>Preemptive, priority-based scheduler</li>
+              <li>Dynamic thread creation and termination</li>
+              <li>Blocking, sleeping, and yielding threads</li>
+              <li>Spin-lock semaphores for shared resources (SPI, UART, I/O)</li>
+              <li>FIFO-based inter-process communication</li>
+              <li>Periodic, aperiodic (interrupt-driven), and background threads</li>
+            </ul>
+
+            <h3 id="thread-model">Thread Model</h3>
+            
+            <h4>Background / System Threads</h4>
+            <ul>
+              <li>Idle thread</li>
+              <li>Periodic screen redraw thread</li>
+            </ul>
+
+            <h4>Gameplay Threads (Dynamic)</h4>
+            <ul>
+              <li>QB, WR, DB behavior threads</li>
+              <li>Ball physics thread</li>
+              <li>Passing, tackling, touchdown, and incomplete-pass handlers</li>
+              <li>Game state transition threads (kickoff, play select, fourth down, end game)</li>
+            </ul>
+
+            <h4>Interrupt-Driven Threads</h4>
+            <ul>
+              <li>GPIO button interrupts</li>
+              <li>Joystick press interrupts</li>
+            </ul>
+
+            <p>Threads are created and killed dynamically to match gameplay state, minimizing CPU idle time and keeping the system responsive.</p>
+
+            <hr>
+
+            <h2 id="gameplay-features">Gameplay Features</h2>
+            <ul>
+              <li>Route-based receiver AI (slant, go, curl, in, out, post, corner)</li>
+              <li>Joystick-controlled quarterback and ball carrier</li>
+              <li>Real-time collision detection (DB vs WR/QB)</li>
+              <li>Football logic: downs, line of scrimmage, end zones, touchdowns, field goals, turnovers, drives</li>
+              <li>Animated sprites with flicker-free rendering</li>
+              <li>Audio cues triggered by game events (touchdown, tackle, incomplete, win/loss)</li>
+              <li>Custom bitmap sprites for players, UI, and menus</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="concurrency--synchronization">Concurrency & Synchronization</h2>
+            <ul>
+              <li>Semaphores protect SPI, UART, joystick, and button access</li>
+              <li>FIFOs send data between threads</li>
+              <li>Periodic events handle rendering every 100 ms</li>
+              <li>Aperiodic events respond instantly to hardware interrupts</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="tech-stack">Tech Stack</h2>
+            <ul>
+              <li><strong>Language:</strong> C</li>
+              <li><strong>RTOS:</strong> Custom G8RTOS</li>
+              <li><strong>Toolchain:</strong> TI Code Composer Studio</li>
+              <li><strong>Drivers:</strong> Custom Multimod peripheral drivers</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="demo-video">Demo Video</h2>
+            <p>Watch the project in action: <a href="https://www.youtube.com/watch?v=hMlsVaNh7H0" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=hMlsVaNh7H0</a></p>
 
           </article>
 
@@ -184,4 +243,3 @@
     
   </body>
 </html>
-
