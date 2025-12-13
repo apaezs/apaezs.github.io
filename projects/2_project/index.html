@@ -107,7 +107,7 @@
             <h2 id="project-overview">Project Overview</h2>
             <div class="row">
               <div class="col-md-8">
-                <p>This project implements a hardware-accelerated 1-D time-domain convolution engine on the Xilinx Zedboard, targeting large performance gains over a software CPU implementation. The design exploits massive parallelism and pipelining to stream data directly from DRAM, compute convolution in hardware, and write results back to memory.</p>
+                <p>This was my final project for EEL 4720 Reconfigurable Computing; my partner was Alexander Aziz. It implements a hardware-accelerated 1-D time-domain convolution engine on the Xilinx Zedboard, targeting large performance gains over a software CPU implementation. The design exploits massive parallelism and pipelining to stream data directly from DRAM, compute convolution in hardware, and write results back to memory.</p>
 
                 <p>The system is split into two major components:</p>
                 <ul>
@@ -157,27 +157,6 @@
             <figure class="figure">
               <img src="/assets/img/conv.png" class="img-fluid rounded" alt="Convolution Accelerator">
             </figure>
-
-            <hr>
-
-            <h2 id="key-features">Key Features</h2>
-            <ul>
-              <li><strong>Custom DRAM Interface:</strong> Direct memory access with optimized burst transfers</li>
-              <li><strong>Clock-Domain Crossing:</strong> Safe synchronization between asynchronous clock domains</li>
-              <li><strong>Fully Pipelined Datapath:</strong> Maximum throughput with minimal latency</li>
-              <li><strong>Scalable Architecture:</strong> Supports kernels from small to large (up to 128 elements)</li>
-              <li><strong>High Performance:</strong> Up to 16× speedup over CPU implementation</li>
-            </ul>
-
-            <hr>
-
-            <h2 id="performance-results">Performance Results</h2>
-            <p>The FPGA accelerator demonstrates significant performance improvements:</p>
-            <ul>
-              <li><strong>Speedup:</strong> Up to ~16× faster than software CPU implementation</li>
-              <li><strong>Throughput:</strong> Optimized for large workloads with continuous data streaming</li>
-              <li><strong>Latency:</strong> Low-latency processing through pipelined architecture</li>
-            </ul>
 
           </article>
 
