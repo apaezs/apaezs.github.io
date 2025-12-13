@@ -314,18 +314,39 @@
       const loader = new THREE.GLTFLoader();
       let model;
 
+      console.log("Attempting to load model from: /assets/models/clouds.glb");
+
       loader.load(
         "/assets/models/clouds.glb",
         function(gltf) {
           model = gltf.scene;
-          scene.add(model);
+          
+          // Log model details
           console.log("Model loaded successfully!", model);
+          console.log("Model children:", model.children);
+          console.log("Model position:", model.position);
+          console.log("Model scale:", model.scale);
+          
+          // Check bounding box to see model size
+          const box = new THREE.Box3().setFromObject(model);
+          const size = box.getSize(new THREE.Vector3());
+          console.log("Model size:", size);
+          console.log("Model center:", box.getCenter(new THREE.Vector3()));
+          
+          // Position model next to cube for comparison
+          model.position.x = 3;
+          
+          scene.add(model);
         },
         function(progress) {
-          console.log("Loading:", (progress.loaded / progress.total * 100) + '%');
+          if (progress.total > 0) {
+            console.log("Loading:", Math.round((progress.loaded / progress.total * 100)) + '%');
+          }
         },
         function(error) {
           console.error("Error loading model:", error);
+          console.error("Make sure the file exists at: /assets/models/clouds.glb");
+          console.error("Check the browser Network tab to see if the file is being requested");
         }
       );
 
