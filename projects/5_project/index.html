@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Alejandro Paez | Happy Head</title>
+    <title>Alejandro Paez | G8RTOS Bowl</title>
     <meta name="author" content="Alejandro Paez" />
-    <meta name="description" content="Modular IoT safety platform for concussion detection in sports" />
-    <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
+    <meta name="description" content="A real-time American football game built from scratch on a TI Tiva microcontroller using a custom preemptive RTOS" />
+    <meta name="keywords" content="embedded systems, RTOS, microcontroller, TI Tiva, real-time operating system" />
 
 
     <!-- Bootstrap & MDB -->
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://apaezs.github.io/projects/3_project/">
+    <link rel="canonical" href="https://apaezs.github.io/projects/5_project/">
     
     <!-- Dark Mode -->
     
@@ -99,62 +99,132 @@
         <div class="post">
 
           <header class="post-header">
-            <h1 class="post-title">Happy Head</h1>
-            <p class="post-description">Modular IoT safety platform for concussion detection in sports</p>
+            <h1 class="post-title">G8RTOS Bowl</h1>
+            <p class="post-description">A real-time American football game built from scratch on a TI Tiva microcontroller using a custom preemptive RTOS, featuring concurrent gameplay, graphics, audio, and input handling.</p>
           </header>
-          <div class="text-center my-4">
-            <img src="/assets/img/happy.jpg" alt="Happy Head" class="img-fluid rounded">
-          </div>
-          
 
           <article>
-            <h2 id="inspiration">Inspiration</h2>
-            <p>Happy Head was inspired because half of the team has had concussions in the past and one of us received one as recently as last week in which he continued to play in his sport half-conscious for 20 minutes following the hit. This inspired us to see what we could do about concussion safety as engineers and make sure that concussions that may have gone unseen are detected.</p>
+            <h2 id="project-overview">Project Overview</h2>
+            <div class="row">
+              <div class="col-md-8">
+                <p>G8RTOS Bowl was my final project for the course EEL 4745: Microprocessor Applications 2 (RTOS). It combines a custom real-time operating system with a complete, playable American football game. The project runs on a TI Tiva™ TM4C123 LaunchPad + Multimod and demonstrates real-world RTOS concepts such as preemptive scheduling, semaphores, FIFOs, periodic and aperiodic events, and dynamic threads, all under real timing and hardware constraints.</p>
+
+                <p>The game includes animated players, route-based AI movement, real-time collision detection, joystick-controlled gameplay, sound effects, and a full football state machine (downs, drives, scoring, kickoffs, turnovers). Watch my demo on <a href="https://www.youtube.com/watch?v=hMlsVaNh7H0" target="_blank" rel="noopener noreferrer" style="color: #65b4ff; font-weight: bold; text-decoration: underline;">YouTube</a> !</p>
+              </div>
+              <div class="col-md-4">
+                <figure class="figure">
+                  <img src="/assets/img/tall.png" class="img-fluid rounded" alt="G8RTOS Bowl project image">
+                </figure>
+              </div>
+            </div>
 
             <hr>
 
-            <h2 id="what-it-does">What it does</h2>
-            <p>Happy Head monitors acceleration data inside of player's helmets/equipment and will display certain emojis, send data to database utilizing USART, and give text-to-speech based on the acceleration the player experiences in an effort for coaches, athletes, and medical staff to become more aware of potentially concussive collisions. Happy Head also stores this information along with timestamps in a database that can be looked through on a website after the game is over for future review of plays.</p>
-
-            <hr>
-
-            <h2 id="how-we-built-it">How we built it</h2>
-            <p>We built this by integrating hardware sensors, embedded programming, data communication systems, a camera, computer vision, and a web application. Our design starts with a Texas Instruments Launchpad microcontroller in which we interfaced with a BMI160 IMU using I2C protocol to use its accelerometer and gyroscope. It also interfaces with a LCD TFT panel using SPI which draws a happy face sprite until a concussive hit is detected. At the same time the system uses USART communication to transmit the magnitude of the X, Y, and Z axis acceleration and the magnitude of the X, Y, and Z angular velocity to a computer which logs the data into a central database. If the value of either passes the threshold of a concussive hit then a text-to-speech alert is triggered ensuring that coaches and medical staff are alerted immediately and the LCD panel will draw a crying face animation.</p>
-
-            <p>The website was built using the Next.js framework with supabase for the database. The frontend displays custom tables and charts using TanStack and Recharts to allow for dynamic, customizable filtering and sorting of data. Prisma was used as the orm to ensure type safe reading and writing from the postgreSQL database. The computer vision component was built using a camera, openCV, and mediapipe's FaceMesh detection. Collisions were detected by checking for overlapping heads on all 3 axes and videos of each collision were saved.</p>
-
-            <hr>
-
-            <h2 id="challenges-we-ran-into">Challenges we ran into</h2>
-            <p>One of the biggest challenges that we ran into on this project was communication as we had many different devices talk to each other with different protocols and performing their own processing of data. Interfacing our embedded system with a web application was also a challenge for our team as it was new to us and we are accustomed to using low level languages, especially with regards to wirelessly sending data from our microcontroller to the web application. Another challenge that we ran into was testing our project as we had some hardware break on us and we had to replace it and change our approaches.</p>
-
-            <hr>
-
-            <h2 id="accomplishments-that-were-proud-of">Accomplishments that we're proud of</h2>
-            <p>We are proud of being able to have such a well interconnected system for such a low level project. As first time hackers we were very proud of being able to see how we could take data from a microcontroller and be able to have it make its way to a website that anyone could see.</p>
-
-            <hr>
-
-            <h2 id="what-we-learned">What we learned</h2>
-            <p>During this project we really got a chance to learn more about how to go about data logging and its intricacies. The project also really gave us a chance to work on our system design as we had many different systems at play and had to parallelize a lot of our workload.</p>
-
-            <hr>
-
-            <h2 id="whats-next-for-happy-head">What's next for Happy Head</h2>
-            <p>On the hardware side we would optimize by designing ASIC's that are much smaller, lighter, wireless, and practical for athletes in live play. We would incorporate Bluetooth or Wi-Fi to eliminate the need for wired USART. On the data science side, the biggest expansion for this project would be the large amount of data we could collect on concussions relatively easily if these systems were used by a large amount of platers. The collected acceleration and gyroscope data could be correlated to diagnosed concussions allowing us to make much more advanced AI models for athletes. On the web app, we would expand by allowing medical staff to tag clips with notes, generate automated reports, and integrate with existing athlete health records. In practices maybe this can be used to identify patterns such as certain drills, positions, or plays that correlate with higher concussion risk. These expansions would help transform Happy Head from a monitoring prototype into a complete IoT prevention ecosystem protecting athletes of all types.</p>
-
-            <hr>
-
-            <h2 id="built-with">Built With</h2>
-            <p>accelerometer, c, camera, gyroscope, i2c, lcd, led, mediapipe, microcontroller, next.js, opencv, postgresql, prisma, python, react, spi, sql, supabase, ti-launchpad, typescript, uart</p>
-
-            <hr>
-
-            <h2 id="try-it-out">Try it out</h2>
+            <h2 id="hardware--platform">Hardware & Platform</h2>
             <ul>
-              <li><strong>GitHub Repo:</strong> <a href="https://github.com/apaezs/HappyHead" target="_blank" rel="noopener noreferrer">https://github.com/apaezs/HappyHead</a></li>
-              <li><strong>Website:</strong> <a href="https://happy-head.vercel.app" target="_blank" rel="noopener noreferrer">https://happy-head.vercel.app</a></li>
+              <li><strong>MCU:</strong> TI TM4C123GH6PM (ARM Cortex-M4F)</li>
+              <li><strong>Display:</strong> ST7789 LCD (SPI)</li>
+              <li><strong>Inputs:</strong> Analog joystick + push buttons (GPIO + I2C expander)</li>
+              <li><strong>Audio:</strong> UART-based sound trigger system</li>
+              <li><strong>Peripherals Used:</strong> SPI, UART, ADC, GPIO, I2C, timers, interrupts</li>
             </ul>
+
+            <hr>
+
+            <h2 id="system-architecture">System Architecture</h2>
+            
+            <h3 id="custom-rtos-built-from-scratch-g8rtos">Custom RTOS Built from Scratch (G8RTOS)</h3>
+            <ul>
+              <li>Preemptive, priority-based scheduler</li>
+              <li>Dynamic thread creation and termination</li>
+              <li>Blocking, sleeping, and yielding threads</li>
+              <li>Spin-lock semaphores for shared resources (SPI, UART, I/O)</li>
+              <li>FIFO-based inter-process communication</li>
+              <li>Periodic, aperiodic (interrupt-driven), and background threads</li>
+            </ul>
+
+            <h3 id="thread-model">Thread Model</h3>
+            
+            <h4>Background / System Threads</h4>
+            <ul>
+              <li>Idle thread</li>
+              <li>Periodic screen redraw thread</li>
+            </ul>
+
+            <h4>Gameplay Threads (Dynamic)</h4>
+            <ul>
+              <li>QB, WR, DB behavior threads</li>
+              <li>Ball physics thread</li>
+              <li>Passing, tackling, touchdown, and incomplete-pass handlers</li>
+              <li>Game state transition threads (kickoff, play select, fourth down, end game)</li>
+            </ul>
+
+            <h4>Interrupt-Driven Threads</h4>
+            <ul>
+              <li>GPIO button interrupts</li>
+              <li>Joystick press interrupts</li>
+            </ul>
+
+            <p>Threads are created and killed dynamically to match gameplay state, minimizing CPU idle time and keeping the system responsive.</p>
+
+            <hr>
+
+            <h2 id="gameplay-features">Gameplay Features</h2>
+            <ul>
+              <li>Route-based receiver AI (slant, go, curl, in, out, post, corner)</li>
+              <li>Joystick-controlled quarterback and ball carrier</li>
+              <li>Real-time collision detection (DB vs WR/QB)</li>
+              <li>Football logic: downs, line of scrimmage, end zones, touchdowns, field goals, turnovers, drives</li>
+              <li>Animated sprites with flicker-free rendering</li>
+              <li>Audio cues triggered by game events (touchdown, tackle, incomplete, win/loss)</li>
+              <li>Custom bitmap sprites for players, UI, and menus</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="concurrency--synchronization">Concurrency & Synchronization</h2>
+            <ul>
+              <li>Semaphores protect SPI, UART, joystick, and button access</li>
+              <li>FIFOs send data between threads</li>
+              <li>Periodic events handle rendering every 100 ms</li>
+              <li>Aperiodic events respond instantly to hardware interrupts</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="tech-stack">Tech Stack</h2>
+            <ul>
+              <li><strong>Language:</strong> C</li>
+              <li><strong>RTOS:</strong> Custom G8RTOS</li>
+              <li><strong>Toolchain:</strong> TI Code Composer Studio</li>
+              <li><strong>Drivers:</strong> Custom Multimod peripheral drivers</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="screenshots">Screenshots</h2>
+            <div class="row mt-3">
+              <div class="col-md-6 mb-3">
+                <figure class="figure">
+                  <img src="/assets/img/gameplay.png" class="img-fluid rounded" alt="Gameplay screenshot">
+                </figure>
+              </div>
+              <div class="col-md-6 mb-3">
+                <figure class="figure">
+                  <img src="/assets/img/plays.png" class="img-fluid rounded" alt="Plays selection screenshot">
+                </figure>
+              </div>
+              <div class="col-md-6 mb-3">
+                <figure class="figure">
+                  <img src="/assets/img/start.png" class="img-fluid rounded" alt="Start screen screenshot">
+                </figure>
+              </div>
+              <div class="col-md-6 mb-3">
+                <figure class="figure">
+                  <img src="/assets/img/home.png" class="img-fluid rounded" alt="Home screen screenshot">
+                </figure>
+              </div>
+            </div>
 
           </article>
 
@@ -203,4 +273,3 @@
     
   </body>
 </html>
-
