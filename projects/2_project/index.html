@@ -105,24 +105,15 @@
 
           <article>
             <h2 id="project-overview">Project Overview</h2>
-            <div class="row">
-              <div class="col-md-8">
-                <p>This was my final project for EEL 4720 Reconfigurable Computing; my partner was Alexander Aziz. It implements a hardware-accelerated 1-D time-domain convolution engine on the Xilinx Zedboard, targeting large performance gains over a software CPU implementation. The design exploits massive parallelism and pipelining to stream data directly from DRAM, compute convolution in hardware, and write results back to memory.</p>
+            <p>This was my final project for EEL 4720 Reconfigurable Computing; my partner was Alexander Aziz. It implements a hardware-accelerated 1-D time-domain convolution engine on the Xilinx Zedboard, targeting large performance gains over a software CPU implementation. The design exploits massive parallelism and pipelining to stream data directly from DRAM, compute convolution in hardware, and write results back to memory.</p>
 
-                <p>The system is split into two major components:</p>
-                <ul>
-                  <li>A custom DRAM read DMA engine with safe clock-domain crossing</li>
-                  <li>A fully unrolled, pipelined convolution datapath supporting kernels up to 128 elements</li>
-                </ul>
+            <p>The system is split into two major components:</p>
+            <ul>
+              <li>A custom DRAM read DMA engine with safe clock-domain crossing</li>
+              <li>A fully unrolled, pipelined convolution datapath supporting kernels up to 128 elements</li>
+            </ul>
 
-                <p>The final design achieves up to <strong>~16× speedup</strong> on large workloads.</p>
-              </div>
-              <div class="col-md-4">
-                <figure class="figure">
-                  <img src="/assets/img/32.jpg" class="img-fluid rounded" alt="FPGA Convolution Accelerator project image">
-                </figure>
-              </div>
-            </div>
+            <p>The final design achieves up to <strong>~16× speedup</strong> on large workloads.</p>
 
             <hr>
 
