@@ -112,9 +112,7 @@
           </h1>
           <p class="desc"><a href="https://github.com/apaezs" target="_blank" rel="noopener noreferrer">Code</a> <a href="www.linkedin.com/in/alejandropaezs" target="_blank" rel="noopener noreferrer">Connect</a> <b>  </b></p>
         </header>
-<div id="model-container"
-     style="width:100%; height:400px; min-height:400px; background:rgba(0,0,0,0.02);">
-</div>
+<div id="model-container" style="width:100%; height:400px; min-height:400px;"></div>
         <article>
           <div class="profile float-right">
 <figure>
@@ -265,76 +263,66 @@
   
   <script>
     window.addEventListener('DOMContentLoaded', function() {
-      console.log("Script starting...");
+      console.log("THREE.js script starting - NO CUBE VERSION");
       
       const container = document.getElementById("model-container");
       if (!container) {
         console.error("Container not found!");
         return;
-      } else {
-        console.log("Container found:", container);
       }
       
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xf0f0f0); // Light gray background to see if canvas renders
+      // NO background color - transparent
 
       const camera = new THREE.PerspectiveCamera(
-        75, // Wider FOV
+        45,
         container.clientWidth / container.clientHeight,
         0.1,
         100
       );
-      camera.position.set(0, 0, 5); // Moved camera back further
+      camera.position.set(0, 0.5, 3);
 
       const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setClearColor(0x000000, 0); // Fully transparent
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
       
-      console.log("Renderer created, canvas size:", container.clientWidth, container.clientHeight);
+      console.log("Renderer created with transparent background");
 
-      // Lights - brighter
-      scene.add(new THREE.AmbientLight(0xffffff, 1));
+      // Lights
+      scene.add(new THREE.AmbientLight(0xffffff, 0.8));
       const light = new THREE.DirectionalLight(0xffffff, 1);
       light.position.set(5, 5, 5);
       scene.add(light);
 
-      // Test cube - bigger and more visible
-      const geometry = new THREE.BoxGeometry(2, 2, 2); // Bigger cube
-      const material = new THREE.MeshStandardMaterial({ 
-        color: 0x00ff00,
-        metalness: 0.3,
-        roughness: 0.4
-      });
-      const cube = new THREE.Mesh(geometry, material);
-      scene.add(cube);
-      console.log("Cube added to scene");
-
-      // Load model
+      // NO CUBE - only load the model
       const loader = new THREE.GLTFLoader();
       let model;
 
-      console.log("Attempting to load model from: /assets/models/clouds.glb");
+      console.log("Loading model from: /assets/models/clouds.glb");
 
       loader.load(
         "/assets/models/clouds.glb",
         function(gltf) {
           model = gltf.scene;
           
-          // Log model details
-          console.log("Model loaded successfully!", model);
-          console.log("Model children:", model.children);
-          console.log("Model position:", model.position);
-          console.log("Model scale:", model.scale);
-          
-          // Check bounding box to see model size
+          // Get model size and center it
           const box = new THREE.Box3().setFromObject(model);
           const size = box.getSize(new THREE.Vector3());
-          console.log("Model size:", size);
-          console.log("Model center:", box.getCenter(new THREE.Vector3()));
+          const center = box.getCenter(new THREE.Vector3());
           
-          // Position model next to cube for comparison
-          model.position.x = 3;
+          // Center the model at origin
+          model.position.sub(center);
+          
+          // Scale model to be about 2 units in size
+          const maxSize = Math.max(size.x, size.y, size.z);
+          const scaleFactor = 2 / maxSize;
+          model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+          
+          console.log("✓ Model loaded and centered!");
+          console.log("  Original size:", size.x.toFixed(2), size.y.toFixed(2), size.z.toFixed(2));
+          console.log("  Scale factor:", scaleFactor.toFixed(2));
           
           scene.add(model);
         },
@@ -345,20 +333,17 @@
         },
         function(error) {
           console.error("Error loading model:", error);
-          console.error("Make sure the file exists at: /assets/models/clouds.glb");
-          console.error("Check the browser Network tab to see if the file is being requested");
         }
       );
 
       function animate() {
         requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        if (model) model.rotation.y += 0.003;
+        if (model) {
+          model.rotation.y += 0.003;
+        }
         renderer.render(scene, camera);
       }
       animate();
-      console.log("Animation started");
 
       window.addEventListener("resize", function() {
         camera.aspect = container.clientWidth / container.clientHeight;
