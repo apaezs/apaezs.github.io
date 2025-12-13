@@ -346,8 +346,18 @@
           // Ensure materials are visible
           model.traverse(function(child) {
             if (child.isMesh) {
+              console.log("    Found mesh:", child.name || "unnamed");
               if (child.material) {
                 child.material.needsUpdate = true;
+                // Force material to be visible
+                if (Array.isArray(child.material)) {
+                  child.material.forEach(mat => {
+                    mat.side = THREE.DoubleSide;
+                    mat.needsUpdate = true;
+                  });
+                } else {
+                  child.material.side = THREE.DoubleSide;
+                }
               }
             }
           });
