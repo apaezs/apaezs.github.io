@@ -149,23 +149,14 @@
             <p>All transfers and control signals safely cross clock domains using dual flop synchronizers, handshake synchronizers, and dual-clock FIFO synchronizers.</p>
 
             <h3 id="dram-read-dma-engine">DRAM Read DMA Engine</h3>
-            <p>The custom DMA engine efficiently streams data from DRAM into the convolution pipeline. It handles:</p>
-            <ul>
-              <li>Burst transfers for optimal memory bandwidth utilization</li>
-              <li>Clock-domain crossing from the 100 MHz DRAM domain to the 70 MHz user domain</li>
-              <li>Address generation and transaction management</li>
-              <li>Flow control and backpressure handling</li>
-            </ul>
+            <figure class="figure">
+              <img src="/assets/img/dram_rd.png" class="img-fluid rounded" alt="DRAM Read DMA Engine">
+            </figure>
 
             <h3 id="convolution-accelerator">Convolution Accelerator</h3>
-            <p>The convolution datapath features:</p>
-            <ul>
-              <li>Fully unrolled pipeline architecture for maximum throughput</li>
-              <li>Support for convolution kernels up to 128 elements</li>
-              <li>Pipelined multiply-add operations with minimal latency</li>
-              <li>Efficient signal buffering to maintain continuous data flow</li>
-              <li>Optimized resource utilization for the Zynq-7000 fabric</li>
-            </ul>
+            <figure class="figure">
+              <img src="/assets/img/conv.png" class="img-fluid rounded" alt="Convolution Accelerator">
+            </figure>
 
             <hr>
 
