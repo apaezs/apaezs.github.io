@@ -323,20 +323,31 @@
           console.log("  Model original size:", size.x.toFixed(3), size.y.toFixed(3), size.z.toFixed(3));
           console.log("  Model original center:", center.x.toFixed(3), center.y.toFixed(3), center.z.toFixed(3));
           
-          // Center the model at origin
-          model.position.sub(center);
+          // Center the model at origin (0, 0, 0)
+          model.position.x = -center.x;
+          model.position.y = -center.y;
+          model.position.z = -center.z;
           
-          // Scale model to be about 2 units in size
+          // Scale model to fit nicely in view (about 2 units)
           const maxSize = Math.max(size.x, size.y, size.z);
-          const scaleFactor = 2 / maxSize;
+          const scaleFactor = 2.5 / maxSize;
           model.scale.set(scaleFactor, scaleFactor, scaleFactor);
           
           console.log("  Scale factor applied:", scaleFactor.toFixed(3));
           console.log("  Model final position:", model.position.x.toFixed(3), model.position.y.toFixed(3), model.position.z.toFixed(3));
           console.log("  Number of children:", model.children.length);
           
+          // Ensure materials are visible
+          model.traverse(function(child) {
+            if (child.isMesh) {
+              if (child.material) {
+                child.material.needsUpdate = true;
+              }
+            }
+          });
+          
           scene.add(model);
-          console.log("✓ Model added to scene");
+          console.log("✓ Model added to scene and should be visible now!");
         },
         function(progress) {
           if (progress.total > 0) {
