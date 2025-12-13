@@ -262,16 +262,17 @@
   
   <script>
     window.addEventListener('DOMContentLoaded', function() {
-      console.log("THREE.js script starting - NO CUBE VERSION");
+      console.log("=== THREE.js script starting - NO CUBE VERSION ===");
       
       const container = document.getElementById("model-container");
       if (!container) {
-        console.error("Container not found!");
+        console.error("❌ Container not found!");
         return;
       }
+      console.log("✓ Container found:", container.clientWidth + "x" + container.clientHeight);
       
       const scene = new THREE.Scene();
-      // NO background color - transparent
+      console.log("✓ Scene created");
 
       const camera = new THREE.PerspectiveCamera(
         45,
@@ -280,36 +281,47 @@
         100
       );
       camera.position.set(0, 0.5, 3);
+      console.log("✓ Camera positioned at:", camera.position.x, camera.position.y, camera.position.z);
 
       const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setClearColor(0x000000, 0); // Fully transparent
+      renderer.setClearColor(0x000000, 0);
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
-      
-      console.log("Renderer created with transparent background");
+      console.log("✓ Renderer created and added to container");
 
       // Lights
       scene.add(new THREE.AmbientLight(0xffffff, 0.8));
       const light = new THREE.DirectionalLight(0xffffff, 1);
       light.position.set(5, 5, 5);
       scene.add(light);
+      console.log("✓ Lights added");
 
-      // NO CUBE - only load the model
+      // Check if GLTFLoader exists
+      if (typeof THREE.GLTFLoader === 'undefined') {
+        console.error("❌ GLTFLoader not found! Check if the script is loading correctly.");
+        return;
+      }
+      console.log("✓ GLTFLoader available");
+
       const loader = new THREE.GLTFLoader();
       let model;
 
-      console.log("Loading model from: /assets/models/desktop.glb");
+      console.log("📦 Attempting to load: /assets/models/desktop.glb");
 
       loader.load(
         "/assets/models/desktop.glb",
         function(gltf) {
+          console.log("✓✓✓ MODEL LOADED SUCCESSFULLY! ✓✓✓");
           model = gltf.scene;
           
           // Get model size and center it
           const box = new THREE.Box3().setFromObject(model);
           const size = box.getSize(new THREE.Vector3());
           const center = box.getCenter(new THREE.Vector3());
+          
+          console.log("  Model original size:", size.x.toFixed(3), size.y.toFixed(3), size.z.toFixed(3));
+          console.log("  Model original center:", center.x.toFixed(3), center.y.toFixed(3), center.z.toFixed(3));
           
           // Center the model at origin
           model.position.sub(center);
@@ -319,30 +331,46 @@
           const scaleFactor = 2 / maxSize;
           model.scale.set(scaleFactor, scaleFactor, scaleFactor);
           
-          console.log("✓ Model loaded and centered!");
-          console.log("  Original size:", size.x.toFixed(2), size.y.toFixed(2), size.z.toFixed(2));
-          console.log("  Scale factor:", scaleFactor.toFixed(2));
+          console.log("  Scale factor applied:", scaleFactor.toFixed(3));
+          console.log("  Model final position:", model.position.x.toFixed(3), model.position.y.toFixed(3), model.position.z.toFixed(3));
+          console.log("  Number of children:", model.children.length);
           
           scene.add(model);
+          console.log("✓ Model added to scene");
         },
         function(progress) {
           if (progress.total > 0) {
-            console.log("Loading:", Math.round((progress.loaded / progress.total * 100)) + '%');
+            const percent = Math.round((progress.loaded / progress.total * 100));
+            console.log("📥 Loading progress: " + percent + "%");
           }
         },
         function(error) {
-          console.error("Error loading model:", error);
+          console.error("❌❌❌ ERROR LOADING MODEL ❌❌❌");
+          console.error(error);
+          console.error("Check: 1) File exists at /assets/models/desktop.glb");
+          console.error("       2) Network tab shows the file request");
+          console.error("       3) File path is correct (case-sensitive)");
         }
       );
 
+      let frameCount = 0;
       function animate() {
         requestAnimationFrame(animate);
         if (model) {
           model.rotation.y += 0.003;
+          if (frameCount === 0) {
+            console.log("🎬 Animation running with model");
+          }
+        } else {
+          if (frameCount === 0) {
+            console.log("⏳ Animation running, waiting for model...");
+          }
         }
         renderer.render(scene, camera);
+        frameCount++;
       }
       animate();
+      console.log("✓ Animation loop started");
 
       window.addEventListener("resize", function() {
         camera.aspect = container.clientWidth / container.clientHeight;
