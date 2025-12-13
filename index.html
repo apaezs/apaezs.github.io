@@ -260,87 +260,90 @@
   <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
   <!-- Three.js -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-  <script type="module">
-    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
-    
-    console.log("Script starting...");
-    
-    const container = document.getElementById("model-container");
-    if (!container) {
-      console.error("Container not found!");
-    } else {
-      console.log("Container found:", container);
-    }
-    
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf0f0f0); // Light gray background to see if canvas renders
-
-    const camera = new THREE.PerspectiveCamera(
-      75, // Wider FOV
-      container.clientWidth / container.clientHeight,
-      0.1,
-      100
-    );
-    camera.position.set(0, 0, 5); // Moved camera back further
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    container.appendChild(renderer.domElement);
-    
-    console.log("Renderer created, canvas size:", container.clientWidth, container.clientHeight);
-
-    // Lights - brighter
-    scene.add(new THREE.AmbientLight(0xffffff, 1));
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 5, 5);
-    scene.add(light);
-
-    // Test cube - bigger and more visible
-    const geometry = new THREE.BoxGeometry(2, 2, 2); // Bigger cube
-    const material = new THREE.MeshStandardMaterial({ 
-      color: 0x00ff00,
-      metalness: 0.3,
-      roughness: 0.4
-    });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    console.log("Cube added to scene");
-
-    // Load model
-    const loader = new GLTFLoader();
-    let model;
-
-    loader.load(
-      "/assets/models/clouds.glb",
-      (gltf) => {
-        model = gltf.scene;
-        scene.add(model);
-        console.log("Model loaded successfully!", model);
-      },
-      (progress) => {
-        console.log("Loading:", (progress.loaded / progress.total * 100) + '%');
-      },
-      (error) => {
-        console.error("Error loading model:", error);
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log("Script starting...");
+      
+      const container = document.getElementById("model-container");
+      if (!container) {
+        console.error("Container not found!");
+        return;
+      } else {
+        console.log("Container found:", container);
       }
-    );
+      
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf0f0f0); // Light gray background to see if canvas renders
 
-    function animate() {
-      requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      if (model) model.rotation.y += 0.003;
-      renderer.render(scene, camera);
-    }
-    animate();
-    console.log("Animation started");
+      const camera = new THREE.PerspectiveCamera(
+        75, // Wider FOV
+        container.clientWidth / container.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.set(0, 0, 5); // Moved camera back further
 
-    window.addEventListener("resize", () => {
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+      
+      console.log("Renderer created, canvas size:", container.clientWidth, container.clientHeight);
+
+      // Lights - brighter
+      scene.add(new THREE.AmbientLight(0xffffff, 1));
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(5, 5, 5);
+      scene.add(light);
+
+      // Test cube - bigger and more visible
+      const geometry = new THREE.BoxGeometry(2, 2, 2); // Bigger cube
+      const material = new THREE.MeshStandardMaterial({ 
+        color: 0x00ff00,
+        metalness: 0.3,
+        roughness: 0.4
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+      console.log("Cube added to scene");
+
+      // Load model
+      const loader = new THREE.GLTFLoader();
+      let model;
+
+      loader.load(
+        "/assets/models/clouds.glb",
+        function(gltf) {
+          model = gltf.scene;
+          scene.add(model);
+          console.log("Model loaded successfully!", model);
+        },
+        function(progress) {
+          console.log("Loading:", (progress.loaded / progress.total * 100) + '%');
+        },
+        function(error) {
+          console.error("Error loading model:", error);
+        }
+      );
+
+      function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        if (model) model.rotation.y += 0.003;
+        renderer.render(scene, camera);
+      }
+      animate();
+      console.log("Animation started");
+
+      window.addEventListener("resize", function() {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
     });
   </script>
 
