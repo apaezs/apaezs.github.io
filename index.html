@@ -275,12 +275,12 @@
       console.log("✓ Scene created");
 
       const camera = new THREE.PerspectiveCamera(
-        45,
+        75, // Wide field of view
         container.clientWidth / container.clientHeight,
         0.1,
-        100
+        1000
       );
-      camera.position.set(0, 0.5, 3);
+      camera.position.set(0, 0, 5); // Move camera further back
       console.log("✓ Camera positioned at:", camera.position.x, camera.position.y, camera.position.z);
 
       const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -290,12 +290,18 @@
       container.appendChild(renderer.domElement);
       console.log("✓ Renderer created and added to container");
 
-      // Lights
-      scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-      const light = new THREE.DirectionalLight(0xffffff, 1);
+      // Lights - MUCH BRIGHTER
+      scene.add(new THREE.AmbientLight(0xffffff, 2)); // Increased from 0.8 to 2
+      const light = new THREE.DirectionalLight(0xffffff, 2); // Increased from 1 to 2
       light.position.set(5, 5, 5);
       scene.add(light);
-      console.log("✓ Lights added");
+      
+      // Add another light from opposite side
+      const light2 = new THREE.DirectionalLight(0xffffff, 1);
+      light2.position.set(-5, -5, -5);
+      scene.add(light2);
+      
+      console.log("✓ Lights added (brighter)");
 
       // Check if GLTFLoader exists
       if (typeof THREE.GLTFLoader === 'undefined') {
@@ -328,9 +334,9 @@
           model.position.y = -center.y;
           model.position.z = -center.z;
           
-          // Scale model to fit nicely in view (about 2 units)
+          // Scale model to be MUCH BIGGER - 10 units
           const maxSize = Math.max(size.x, size.y, size.z);
-          const scaleFactor = 2.5 / maxSize;
+          const scaleFactor = 10 / maxSize; // Made it 10 instead of 2.5
           model.scale.set(scaleFactor, scaleFactor, scaleFactor);
           
           console.log("  Scale factor applied:", scaleFactor.toFixed(3));
