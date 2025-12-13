@@ -262,97 +262,96 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
   
   <script>
- <script>
-window.addEventListener('DOMContentLoaded', function () {
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log("THREE.js script starting - NO CUBE VERSION");
+      
+      const container = document.getElementById("model-container");
+      if (!container) {
+        console.error("Container not found!");
+        return;
+      }
+      
+      const scene = new THREE.Scene();
+      // NO background color - transparent
 
-  const container = document.getElementById("model-container");
-  if (!container) return;
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.set(0, 0, 2);
 
-  const scene = new THREE.Scene();
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setClearColor(0x000000, 0); // Fully transparent
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+      
+      console.log("Renderer created with transparent background");
 
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    100
-  );
-  camera.position.set(0, 0, 2);
+      // Lights
+      scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(5, 5, 5);
+      scene.add(light);
 
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setClearColor(0x000000, 0);
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  container.appendChild(renderer.domElement);
+      // NO CUBE - only load the model
+      const loader = new THREE.GLTFLoader();
+      let model;
 
-  // Lights
-  scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(5, 5, 5);
-  scene.add(light);
+      console.log("Loading model from: /assets/models/clouds.glb");
 
-  // Load model
-  const loader = new THREE.GLTFLoader();
-  let model;
+      loader.load(
+        "/assets/models/clouds.glb",
+        function(gltf) {
+          model = gltf.scene;
+          
+          // Get model size and center it
+          const box = new THREE.Box3().setFromObject(model);
+          const size = box.getSize(new THREE.Vector3());
+          const center = box.getCenter(new THREE.Vector3());
+          
+          // Center the model at origin
+          model.position.sub(center);
+          
+          // Scale model to be about 2 units in size
+          const maxSize = Math.max(size.x, size.y, size.z);
+          const scaleFactor = 2 / maxSize;
+          model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+          
+          console.log("✓ Model loaded and centered!");
+          console.log("  Original size:", size.x.toFixed(2), size.y.toFixed(2), size.z.toFixed(2));
+          console.log("  Scale factor:", scaleFactor.toFixed(2));
+          
+          scene.add(model);
+        },
+        function(progress) {
+          if (progress.total > 0) {
+            console.log("Loading:", Math.round((progress.loaded / progress.total * 100)) + '%');
+          }
+        },
+        function(error) {
+          console.error("Error loading model:", error);
+        }
+      );
 
-  loader.load("/assets/models/clouds.glb", function (gltf) {
-    model = gltf.scene;
+      function animate() {
+        requestAnimationFrame(animate);
+        if (model) {
+          model.rotation.y += 0.003;
+        }
+        renderer.render(scene, camera);
+      }
+      animate();
 
-    const box = new THREE.Box3().setFromObject(model);
-    const size = box.getSize(new THREE.Vector3());
-    const center = box.getCenter(new THREE.Vector3());
-
-    model.position.sub(center);
-
-    const scale = 2 / Math.max(size.x, size.y, size.z);
-    model.scale.set(scale, scale, scale);
-
-    scene.add(model);
-  });
-
-  // ===============================
-  // 🖱️ CLICK + DRAG ROTATION LOGIC
-  // ===============================
-  let isDragging = false;
-  let prevMouse = { x: 0, y: 0 };
-
-  container.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    prevMouse.x = e.clientX;
-    prevMouse.y = e.clientY;
-  });
-
-  window.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
-
-  window.addEventListener("mousemove", (e) => {
-    if (!isDragging || !model) return;
-
-    const deltaX = e.clientX - prevMouse.x;
-    const deltaY = e.clientY - prevMouse.y;
-
-    model.rotation.y += deltaX * 0.005;
-    model.rotation.x += deltaY * 0.005;
-
-    prevMouse.x = e.clientX;
-    prevMouse.y = e.clientY;
-  });
-
-  // Render loop (NO auto-rotation)
-  function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener("resize", function () {
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
-  });
-});
-</script>
-
+      window.addEventListener("resize", function() {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    });
+  </script>
 
   </body>
   
