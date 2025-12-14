@@ -20,6 +20,8 @@ theme: minima
 minima:
   skin: classic
   show_excerpts: false
+  social_links: []
+
 
 # Collections
 collections:
