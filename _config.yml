@@ -34,3 +34,4 @@ defaults:
       path: ""
     values:
       layout: null
+show_rss: false
