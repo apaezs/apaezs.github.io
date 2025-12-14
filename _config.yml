@@ -5,7 +5,6 @@ baseurl: ""
 # Build settings
 markdown: kramdown
 plugins:
-  - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
 
@@ -14,8 +13,13 @@ title: "Alejandro Paez"
 description: "Personal Website"
 author: "Alejandro Paez"
 
-# Theme settings
+# Theme
 theme: minima
+
+# Minima configuration (disable blog behavior)
+minima:
+  skin: classic
+  show_excerpts: false
 
 # Collections
 collections:
@@ -23,4 +27,3 @@ collections:
     output: true
   projects:
     output: true
-
