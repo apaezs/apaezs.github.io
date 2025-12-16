@@ -149,7 +149,7 @@
 <p></p>
 
           </div>
-          <div id="model-container" style="width:100%; height:400px; min-height:400px;"></div>
+          <div id="model-container" style="width:100%; height:400px; min-height:400px; cursor: grab;"></div>
 
 
           <!-- News -->          
@@ -335,11 +335,65 @@
         }
       );
 
+      // Mouse drag controls
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+      
+      container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+        container.style.cursor = 'grabbing';
+      });
+      
+      container.addEventListener('mousemove', function(e) {
+        if (isDragging && model) {
+          const deltaX = e.clientX - previousMousePosition.x;
+          const deltaY = e.clientY - previousMousePosition.y;
+          
+          model.rotation.y += deltaX * 0.01;
+          model.rotation.x += deltaY * 0.01;
+          
+          previousMousePosition = { x: e.clientX, y: e.clientY };
+        }
+      });
+      
+      container.addEventListener('mouseup', function() {
+        isDragging = false;
+        container.style.cursor = 'grab';
+      });
+      
+      container.addEventListener('mouseleave', function() {
+        isDragging = false;
+        container.style.cursor = 'grab';
+      });
+      
+      // Touch support for mobile
+      container.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      });
+      
+      container.addEventListener('touchmove', function(e) {
+        if (isDragging && model && e.touches.length === 1) {
+          e.preventDefault();
+          const deltaX = e.touches[0].clientX - previousMousePosition.x;
+          const deltaY = e.touches[0].clientY - previousMousePosition.y;
+          
+          model.rotation.y += deltaX * 0.01;
+          model.rotation.x += deltaY * 0.01;
+          
+          previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      });
+      
+      container.addEventListener('touchend', function() {
+        isDragging = false;
+      });
+
       function animate() {
         requestAnimationFrame(animate);
-        if (model) {
-          model.rotation.y += 0.003;
-        }
         renderer.render(scene, camera);
       }
       animate();
