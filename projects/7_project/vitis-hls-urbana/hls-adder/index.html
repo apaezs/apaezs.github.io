@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Alejandro Paez | HLS Adder</title>
+    <meta name="author" content="Alejandro Paez" />
+    <meta name="description" content="Learn the basics of HLS by creating a simple adder" />
+    <meta name="keywords" content="Vitis, HLS, adder, RealDigital, Urbana, Xilinx, FPGA" />
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous" />
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="none" id="highlight_theme_light" />
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://apaezs.github.io/projects/7_project/vitis-hls-urbana/hls-adder/">
+    
+    <!-- Dark Mode -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark" />
+
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav ">
+
+    <!-- Header -->
+    <header>
+
+      <!-- Nav Bar -->
+      <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+        <div class="container">
+          <a class="navbar-brand title font-weight-lighter" href="https://apaezs.github.io/"><span class="font-weight-bold">Alejandro</span>   Paez</a>
+          <!-- Navbar Toggle -->
+          <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+          </button>
+
+          <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+
+              <!-- About -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/">about</a>
+              </li>
+              
+
+
+              <!-- Other pages -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/projects/">projects</a>
+              </li>
+
+              <!-- Toogle theme mode -->
+              <div class="toggle-container">
+                <a id="light-toggle">
+                  <i class="fas fa-moon"></i>
+                  <i class="fas fa-sun"></i>
+                </a>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Content -->
+    <div class="container mt-5">
+      <!-- page.html -->
+        <div class="post">
+
+          <header class="post-header">
+            <h1 class="post-title">HLS Adder</h1>
+            <p class="post-description">Learn the basics of HLS by creating a simple adder</p>
+          </header>
+
+          <article>
+            <h2 id="required-software">Required Software</h2>
+            <p><strong>AMD Xilinx Vitis 2024.1 – Complete Suite</strong></p>
+            <p>Includes:</p>
+            <ul>
+              <li>Vivado Design Suite</li>
+              <li>Vitis HLS</li>
+              <li>Vitis IDE</li>
+            </ul>
+            <p>Make sure you install the complete suite, not individual tools.</p>
+
+            <h2 id="optional-hardware">Optional Hardware</h2>
+            <ul>
+              <li>Urbana FPGA Board</li>
+            </ul>
+
+            <h2 id="recommended-background">Recommended Background</h2>
+            <ul>
+              <li>Basic proficiency in C/C++</li>
+              <li>Basic understanding of digital logic</li>
+            </ul>
+
+            <hr>
+
+            <h2 id="simple-hls-adder-tutorial">Simple HLS Adder Tutorial</h2>
+
+            <h3 id="step-1-launch-vitis">Step 1: Launch Vitis</h3>
+            <ol>
+              <li>Open Vitis 2024.1</li>
+              <li>⚠️ <strong>Make sure you open Vitis, not Vitis HLS 2024.1.</strong></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/app_ss.png" alt="Vitis application" class="img-fluid mb-3">
+            <p>You should see the following home screen.</p>
+            <img src="/assets/img/vitis_hls_imgs/vitis_2024.1_open_screen.png" alt="Vitis 2024.1 home screen" class="img-fluid mb-3">
+
+            <h3 id="step-2-create-a-workspace">Step 2: Create a Workspace</h3>
+            <ol>
+              <li>Click <strong>Open Workspace</strong>.</li>
+              <li>Navigate to your preferred directory and create a folder called: <code>hls_adder_tutorial</code></li>
+              <li>Select the folder and click <strong>Open Folder</strong>.</li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/workspace_open.png" alt="Workspace selection" class="img-fluid mb-3">
+
+            <h3 id="step-3-create-an-hls-component">Step 3: Create an HLS Component</h3>
+            <ol>
+              <li>In the top-left corner, select <strong>Create HLS Component</strong>.</li>
+              <li>A setup window will appear:
+                <ul>
+                  <li>Change the component name to <code>simple_adder</code></li>
+                  <li>Keep the component location unchanged</li>
+                </ul>
+              </li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/name_loc.png" alt="Component name and location" class="img-fluid mb-3">
+            <ol start="3">
+              <li>On the <strong>Configuration File</strong> page, do not change anything. Click <strong>Next</strong>.</li>
+              <li>On the <strong>Source Files</strong> page, do not change anything. Click <strong>Next</strong>.</li>
+              <li>On the <strong>Hardware</strong> page:
+                <ul>
+                  <li>Search for <code>xc7s50csg324-1</code></li>
+                  <li>Select it and click <strong>Next</strong></li>
+                </ul>
+              </li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/hardware.png" alt="Hardware selection" class="img-fluid mb-3">
+            <ol start="6">
+              <li>Leave the remaining settings as-is and click <strong>Finish</strong>.</li>
+            </ol>
+            <p>You should now see the following screen.</p>
+            <img src="/assets/img/vitis_hls_imgs/component_add.png" alt="Component added" class="img-fluid mb-3">
+
+            <h3 id="step-4-add-source-and-testbench-files">Step 4: Add Source and Testbench Files</h3>
+            <p>In the top-right panel under <code>simple_adder [HLS]</code>:</p>
+            <ol>
+              <li>Right-click <strong>Sources</strong> → <strong>Add Source File</strong></li>
+              <li>Create a new C++ file named: <code>simple_adder.cpp</code></li>
+              <li>Repeat the process for the testbench:
+                <ul>
+                  <li>Right-click <strong>Testbench</strong> → <strong>Add Test Bench File</strong></li>
+                  <li>Name it: <code>simple_adder_tb.cpp</code></li>
+                </ul>
+              </li>
+            </ol>
+            <p>Your setup should now look like this.</p>
+            <img src="/assets/img/vitis_hls_imgs/files_created.png" alt="Files created" class="img-fluid mb-3">
+
+            <h3 id="step-5-add-the-hls-code">Step 5: Add the HLS Code</h3>
+            <p>Copy the following into <code>simple_adder.cpp</code>:</p>
+            <pre><code>#include &lt;ap_int.h&gt;
+
+extern "C" void adder(
+    ap_uint&lt;4&gt; a,
+    ap_uint&lt;4&gt; b,
+    ap_uint&lt;5&gt; &amp;sum
+) {
+#pragma HLS INTERFACE ap_none port=a
+#pragma HLS INTERFACE ap_none port=b
+#pragma HLS INTERFACE ap_none port=sum
+#pragma HLS INTERFACE ap_ctrl_none port=return
+
+    sum = a + b;
+}</code></pre>
+
+            <p>Now copy the following into <code>simple_adder_tb.cpp</code>:</p>
+            <pre><code>#include &lt;iostream&gt;
+#include &lt;ap_int.h&gt;
+
+extern "C" void adder(ap_uint&lt;4&gt; a, ap_uint&lt;4&gt; b, ap_uint&lt;5&gt; &amp;sum);
+
+int main() {
+    ap_uint&lt;5&gt; s;
+
+    adder(3, 7, s);
+    if (s != 10) return 1;
+
+    adder(15, 1, s);
+    if (s != 16) return 1;
+
+    std::cout &lt;&lt; "SIM PASSED\n";
+    return 0;
+}</code></pre>
+
+            <h3 id="step-6-run-c-simulation">Step 6: Run C Simulation</h3>
+            <ol>
+              <li>In the bottom-right corner under <strong>C SIMULATION</strong>, select <strong>Run</strong>.</li>
+              <li>If prompted to enable the Code Analyzer, select <strong>No thanks</strong>.</li>
+              <li>After simulation completes, a terminal window should appear.</li>
+              <li>If everything is correct, it should print: <code>SIM PASSED</code></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/sim_passed.png" alt="Simulation passed" class="img-fluid mb-3">
+
+            <h3 id="step-7-set-the-top-level-function">Step 7: Set the Top-Level Function</h3>
+            <p>Before synthesis, we must define the top-level function.</p>
+            <p>In the top-left panel under <code>simple_adder [HLS]</code>:</p>
+            <ol>
+              <li>Select <strong>Settings</strong></li>
+              <li>Open <code>hls_config.cfg</code></li>
+              <li>Search for <strong>Top</strong>.</li>
+              <li>Under <strong>C Synthesis Sources</strong>, click <strong>Browse</strong> and select: <code>simple_adder.cpp</code></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/settings.png" alt="Settings configuration" class="img-fluid mb-3">
+            <ol start="5">
+              <li>Click <strong>OK</strong>.</li>
+            </ol>
+
+            <h3 id="step-8-run-hls-flow">Step 8: Run HLS Flow</h3>
+            <p>Run the following steps in order:</p>
+            <ol>
+              <li>Under <strong>C Synthesis</strong>, select <strong>Run</strong>
+                <ul>
+                  <li>Terminal should end with: "Synthesis finished successfully"</li>
+                </ul>
+              </li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/synthesis_suc.png" alt="Synthesis successful" class="img-fluid mb-3">
+            <ol start="2">
+              <li>Under <strong>C/RTL Co-Simulation</strong>, select <strong>Run</strong>
+                <ul>
+                  <li>Output should say: "Co-simulation finished successfully"</li>
+                </ul>
+              </li>
+              <li>Under <strong>Package</strong>, select <strong>Run</strong>
+                <ul>
+                  <li>Output should say: "Package finished successfully"</li>
+                </ul>
+              </li>
+              <li>Under <strong>Implementation</strong>, select <strong>Run</strong>
+                <ul>
+                  <li>Ignore warnings</li>
+                  <li>This may take a while</li>
+                  <li>Output should say: "Implementation finished successfully"</li>
+                </ul>
+              </li>
+            </ol>
+
+            <hr>
+
+            <h2 id="vivado-integration">Vivado Integration</h2>
+
+            <h3 id="step-9-create-a-vivado-project">Step 9: Create a Vivado Project</h3>
+            <ol>
+              <li>Open Vivado 2024.1.</li>
+              <li>On the home screen under <strong>Quick Start</strong>, select <strong>Create Project</strong>.</li>
+              <li>Project name: <code>hls_adder_tutorial</code></li>
+              <li>Choose a project location</li>
+              <li>Project type: <strong>RTL Project</strong></li>
+              <li>Skip <strong>Add Sources</strong> and <strong>Add Constraints</strong></li>
+              <li>On the <strong>Default Part</strong> page, search for: <code>xc7s50csga324-1</code></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/part_in_vivado.png" alt="Part selection in Vivado" class="img-fluid mb-3">
+            <ol start="8">
+              <li>Click <strong>Finish</strong>.</li>
+            </ol>
+
+            <h3 id="step-10-create-block-design">Step 10: Create Block Design</h3>
+            <ol>
+              <li>In the left panel, select <strong>Create Block Design</strong>.</li>
+              <li>When prompted, press <strong>OK</strong>.</li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/block_design.png" alt="Block design" class="img-fluid mb-3">
+
+            <h3 id="step-11-add-hls-ip-repository">Step 11: Add HLS IP Repository</h3>
+            <p>From the top menu:</p>
+            <ol>
+              <li>Select <strong>Tools</strong> → <strong>Settings</strong></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/tools_settings.png" alt="Tools settings" class="img-fluid mb-3">
+            <p>In the settings window:</p>
+            <ol start="2">
+              <li>Expand <strong>IP</strong></li>
+              <li>Select <strong>Repository</strong></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/add_ip.png" alt="Add IP repository" class="img-fluid mb-3">
+            <ol start="4">
+              <li>Click the <strong>+</strong> icon and navigate to your Vitis HLS project directory.</li>
+              <li>Select the folder named <code>ip</code> (see screenshot).</li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/files.png" alt="IP files" class="img-fluid mb-3">
+            <ol start="6">
+              <li>Press <strong>OK</strong>, then <strong>Apply</strong>.</li>
+            </ol>
+
+            <h3 id="step-12-add-the-adder-ip">Step 12: Add the Adder IP</h3>
+            <p>Back in the block design:</p>
+            <ol>
+              <li>Click the <strong>+</strong> icon in the diagram area</li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/block_ip.png" alt="Block IP selection" class="img-fluid mb-3">
+            <ol start="2">
+              <li>Search for <strong>Adder</strong> and add it.</li>
+              <li>Right-click the IP block and select <strong>Make External</strong> to expose its inputs and outputs.</li>
+            </ol>
+
+            <h3 id="step-13-create-hdl-wrapper">Step 13: Create HDL Wrapper</h3>
+            <p>In <strong>Sources</strong> → <strong>Design Sources</strong>:</p>
+            <ol>
+              <li>Right-click <code>design_1</code></li>
+              <li>Select <strong>Create HDL Wrapper</strong></li>
+              <li>Choose <strong>Let Vivado manage wrapper and auto-update</strong></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/wrap.png" alt="HDL wrapper" class="img-fluid mb-3">
+            <ol start="4">
+              <li>Click <strong>OK</strong>.</li>
+            </ol>
+
+            <h3 id="step-14-add-constraints">Step 14: Add Constraints</h3>
+            <ol>
+              <li>Right-click <strong>Constraints</strong> → <strong>Add Sources</strong></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/con1.png" alt="Add constraints" class="img-fluid mb-3">
+            <ol start="2">
+              <li>Select <strong>Add or Create Constraints</strong></li>
+              <li>Choose <strong>Create File</strong></li>
+              <li>Name it: <code>urbana</code></li>
+              <li>Click <strong>Finish</strong></li>
+              <li>Open the newly created constraint file and paste the following:</li>
+            </ol>
+            <pre><code>############################################################
+# RealDigital Urbana - HLS Adder (design_1_wrapper)
+# a_0   <- SW[3:0]
+# b_0   <- SW[7:4]
+# sum_0 -> LED[4:0]
+############################################################
+
+############################
+# Reset (tie to SW15)
+############################
+set_property -dict {PACKAGE_PIN A8 IOSTANDARD LVCMOS25} [get_ports ap_rst_0]
+
+############################
+# Adder input A (SW[3:0])
+############################
+set_property -dict {PACKAGE_PIN G1 IOSTANDARD LVCMOS25} [get_ports {a_0[0]}]
+set_property -dict {PACKAGE_PIN F2 IOSTANDARD LVCMOS25} [get_ports {a_0[1]}]
+set_property -dict {PACKAGE_PIN F1 IOSTANDARD LVCMOS25} [get_ports {a_0[2]}]
+set_property -dict {PACKAGE_PIN E2 IOSTANDARD LVCMOS25} [get_ports {a_0[3]}]
+
+############################
+# Adder input B (SW[7:4])
+############################
+set_property -dict {PACKAGE_PIN E1 IOSTANDARD LVCMOS25} [get_ports {b_0[0]}]
+set_property -dict {PACKAGE_PIN D2 IOSTANDARD LVCMOS25} [get_ports {b_0[1]}]
+set_property -dict {PACKAGE_PIN D1 IOSTANDARD LVCMOS25} [get_ports {b_0[2]}]
+set_property -dict {PACKAGE_PIN C2 IOSTANDARD LVCMOS25} [get_ports {b_0[3]}]
+
+############################
+# Adder output (LED[4:0])
+############################
+set_property -dict {PACKAGE_PIN C13 IOSTANDARD LVCMOS33} [get_ports {sum_0[0]}]
+set_property -dict {PACKAGE_PIN C14 IOSTANDARD LVCMOS33} [get_ports {sum_0[1]}]
+set_property -dict {PACKAGE_PIN D14 IOSTANDARD LVCMOS33} [get_ports {sum_0[2]}]
+set_property -dict {PACKAGE_PIN D15 IOSTANDARD LVCMOS33} [get_ports {sum_0[3]}]
+set_property -dict {PACKAGE_PIN D16 IOSTANDARD LVCMOS33} [get_ports {sum_0[4]}]
+
+############################
+# Board configuration
+############################
+set_property CFGBVS VCCO [current_design]
+set_property CONFIG_VOLTAGE 3.3 [current_design]
+set_property BITSTREAM.CONFIG.UNUSEDPIN PULLUP [current_design]</code></pre>
+
+            <h3 id="step-15-build-and-program">Step 15: Build and Program</h3>
+            <p>In the left panel:</p>
+            <ol>
+              <li>Select <strong>Run Synthesis</strong></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/viv_synth.png" alt="Run synthesis" class="img-fluid mb-3">
+            <p>When synthesis completes:</p>
+            <ol start="2">
+              <li>Select <strong>Run Implementation</strong></li>
+              <li>Then select <strong>Generate Bitstream</strong></li>
+              <li>Once complete:
+                <ul>
+                  <li>Ensure the Urbana board is plugged in</li>
+                  <li>Select <strong>Open Hardware Manager</strong></li>
+                </ul>
+              </li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/hard.png" alt="Hardware manager" class="img-fluid mb-3">
+            <ol start="5">
+              <li>Click <strong>Open Target</strong> → <strong>Auto Connect</strong></li>
+            </ol>
+            <img src="/assets/img/vitis_hls_imgs/connected.png" alt="Connected" class="img-fluid mb-3">
+            <ol start="6">
+              <li>Finally:
+                <ul>
+                  <li>Select <strong>Program Device</strong></li>
+                  <li>Click <strong>Program</strong></li>
+                </ul>
+              </li>
+            </ol>
+
+            <hr>
+
+            <h2 id="done">Done!</h2>
+            <p>You can now test your adder using:</p>
+            <ul>
+              <li>Switches as inputs</li>
+              <li>LEDs as outputs</li>
+            </ul>
+          </article>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js" integrity="sha256-l/1pMF/+J4TThfgARS6KwWrk/egwuVvhRzfLAMQ6Ds4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha256-SyTu6CwrfOhaznYZPoolVw2rxoY7lKYKQvqbtqN93HI=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
+    
+  <!-- Medium Zoom JS -->
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+  <script src="/assets/js/zoom.js"></script><!-- Load Common JS -->
+  <script src="/assets/js/common.js"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    
+  </body>
+</html>
+
