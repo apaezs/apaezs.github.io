@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Alejandro Paez | Mini Embedded Projects</title>
+    <meta name="author" content="Alejandro Paez" />
+    <meta name="description" content="A growing collection of small embedded designs I'm building and refining." />
+    <meta name="keywords" content="VHDL, SystemVerilog, embedded systems, digital design, microcontroller" />
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+    <!-- Styles -->
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://apaezs.github.io/projects/6_project/">
+    
+    <!-- Dark Mode - Initialize theme before rendering -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      })();
+    </script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+    <style>
+      /* Project Page Layout */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Courier New', monospace;
+        background: white;
+        color: black;
+        overflow-x: hidden;
+      }
+      
+      [data-theme="dark"] body {
+        background: black;
+        color: white;
+      }
+      
+      .project-container {
+        min-height: 100vh;
+        padding: 4rem 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+      }
+      
+      .project-nav {
+        margin-bottom: 3rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .project-nav {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-nav-links {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .project-nav-links a {
+        color: inherit;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+      
+      .project-nav-links a:hover {
+        opacity: 0.7;
+      }
+      
+      .theme-toggle-btn {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        z-index: 1000;
+        color: inherit;
+      }
+      
+      .theme-toggle-btn:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .theme-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .theme-toggle-btn svg {
+        display: block;
+      }
+      
+      .project-header {
+        margin-bottom: 3rem;
+      }
+      
+      .project-header h1 {
+        font-size: 1.5rem;
+        font-weight: normal;
+        margin-bottom: 1rem;
+      }
+      
+      .project-header p {
+        font-size: 1rem;
+        margin: 0;
+        opacity: 0.7;
+        line-height: 1.6;
+      }
+      
+      .project-content {
+        line-height: 1.8;
+      }
+      
+      .project-content h2 {
+        font-size: 1.25rem;
+        font-weight: normal;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .project-content h3 {
+        font-size: 1.125rem;
+        font-weight: normal;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .project-content h4 {
+        font-size: 1rem;
+        font-weight: normal;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .project-content p {
+        margin-bottom: 1rem;
+      }
+      
+      .project-content ul, .project-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+      }
+      
+      .project-content li {
+        margin-bottom: 0.5rem;
+      }
+      
+      .project-content hr {
+        border: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+      }
+      
+      [data-theme="dark"] .project-content hr {
+        border-top-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-content a {
+        color: inherit;
+        text-decoration: underline;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+      }
+      
+      .project-content a:hover {
+        opacity: 1;
+      }
+      
+      .project-content strong {
+        font-weight: normal;
+      }
+      
+      .project-content code {
+        font-family: 'Courier New', monospace;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+      }
+      
+      [data-theme="dark"] .project-content code {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .project-content img {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+      
+      @media (max-width: 768px) {
+        .project-container {
+          padding: 2rem 1rem;
+        }
+        
+        .project-header h1 {
+          font-size: 1.25rem;
+        }
+        
+        .project-image-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- Body -->
+  <body>
+
+    <div class="project-container">
+      <!-- Theme toggle button -->
+      <button
+        id="portfolio-theme-toggle"
+        class="theme-toggle-btn"
+        aria-label="Toggle theme"
+      >
+        <svg id="theme-icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg id="theme-icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+
+      <!-- Navigation -->
+      <div class="project-nav">
+        <div class="project-nav-links">
+          <a href="/">Home</a>
+          <a href="/projects/">Projects</a>
+          <a href="https://github.com/apaezs" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="mailto:apaezsansonetti@ufl.edu">Email</a>
+          <a href="https://www.linkedin.com/in/alejandropaezs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="project-header">
+        <h1>Mini Embedded Projects</h1>
+        <p>A growing collection of small embedded designs I'm building and refining.</p>
+      </div>
+
+      <!-- Content -->
+      <div class="project-content">
+        <h2 id="tiva-opencv">OpenCV on ARM Microcontroller (C/Python)</h2>
+        <div style="margin: 1.5rem 0; text-align: center;">          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/LKHMoBb4nZM"
+            title="OpenCV on ARM Microcontroller Demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            style="max-width: 100%; border: 1px solid rgba(0,0,0,0.1);"
+          ></iframe>
+        </div>
+
+        <hr>
+
+        <h2 id="real-time_frew">Real-Time Frequency Analyzer on ARM Microcontroller using Goertzel Algorithm</h2>
+        <div style="margin: 1.5rem 0; text-align: center;">          <iframe
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/yGwiMZ5P5Cg"
+            title="Real-Time Frequency Analyzer using Goertzel Algorithm"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            style="max-width: 100%; border: 1px solid rgba(0,0,0,0.1);"
+          ></iframe>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('portfolio-theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        
+        function updateThemeIcon() {
+          if (!sunIcon || !moonIcon) return;
+          
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          if (isDark) {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+          } else {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+          }
+        }
+        
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const currentTheme = localStorage.getItem('theme') || document.documentElement.getAttribute('data-theme') || 'dark';
+            
+            try {
+              if (typeof toggleTheme === 'function') {
+                toggleTheme(currentTheme);
+              } else {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+              }
+            } catch (error) {
+              const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+              document.documentElement.setAttribute('data-theme', newTheme);
+              localStorage.setItem('theme', newTheme);
+            }
+            
+            setTimeout(updateThemeIcon, 150);
+          });
+          
+          updateThemeIcon();
+          
+          const observer = new MutationObserver(function() {
+            updateThemeIcon();
+          });
+          observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+          });
+        }
+      });
+    </script>
+
+  </body>
+</html>

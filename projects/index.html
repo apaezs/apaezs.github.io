@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>
+    <!-- Metadata, OpenGraph and Schema.org -->
+    
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Alejandro Paez | projects</title>
+    <meta name="author" content="Alejandro Paez" />
+    <meta name="description" content="A growing collection of my projects" />
+    <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+    <!-- Styles -->
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://apaezs.github.io/projects/">
+    
+    <!-- Dark Mode - Initialize theme before rendering -->
+    <script>
+      // Initialize theme from localStorage before page renders to prevent white flash
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      })();
+    </script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+    <style>
+      /* Projects Page Layout */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Courier New', monospace;
+        background: white;
+        color: black;
+        overflow-x: hidden;
+      }
+      
+      [data-theme="dark"] body {
+        background: black;
+        color: white;
+      }
+      
+      .projects-container {
+        min-height: 100vh;
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+      }
+      
+      .theme-toggle-btn {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        z-index: 1000;
+        color: inherit;
+      }
+      
+      .theme-toggle-btn:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .theme-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .theme-toggle-btn svg {
+        display: block;
+      }
+      
+      .projects-nav {
+        margin-bottom: 3rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .projects-nav {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .projects-nav-links {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .projects-nav-links a {
+        color: inherit;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+      
+      .projects-nav-links a:hover {
+        opacity: 0.7;
+      }
+      
+      .projects-header {
+        margin-bottom: 4rem;
+      }
+      
+      .projects-header h1 {
+        font-size: 1.125rem;
+        font-weight: normal;
+        margin-bottom: 1rem;
+      }
+      
+      .projects-header p {
+        font-size: 1rem;
+        margin: 0;
+        opacity: 0.7;
+      }
+      
+      .projects-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+      
+      .project-item {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      
+      [data-theme="dark"] .project-item {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-item:hover {
+        border-color: rgba(0, 0, 0, 0.3);
+      }
+      
+      [data-theme="dark"] .project-item:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      
+      .project-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+      }
+      
+      .project-content {
+        padding: 1.5rem;
+      }
+      
+      .project-title {
+        font-size: 1rem;
+        font-weight: normal;
+        margin: 0 0 0.5rem 0;
+      }
+      
+      .project-description {
+        font-size: 0.875rem;
+        margin: 0;
+        opacity: 0.7;
+        line-height: 1.5;
+      }
+      
+      @media (max-width: 768px) {
+        .projects-container {
+          padding: 2rem 1rem;
+        }
+        
+        .projects-list {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        
+        .projects-header {
+          margin-bottom: 2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- Body -->
+  <body>
+
+    <div class="projects-container">
+      <!-- Theme toggle button -->
+      <button
+        id="portfolio-theme-toggle"
+        class="theme-toggle-btn"
+        aria-label="Toggle theme"
+      >
+        <svg id="theme-icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg id="theme-icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+
+      <!-- Navigation -->
+      <div class="projects-nav">
+        <div class="projects-nav-links">
+          <a href="/">Home</a>
+          <a href="https://github.com/apaezs" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="mailto:apaezsansonetti@ufl.edu">Email</a>
+          <a href="https://www.linkedin.com/in/alejandropaezs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="projects-header">
+        <h1>projects</h1>
+        <p>A growing collection of my projects</p>
+      </div>
+
+      <!-- Projects List -->
+      <div class="projects-list">
+        <!-- Project 1 -->
+        <a href="/projects/1_project/" class="project-item">
+          <img src="/assets/img/g8.png" alt="G8RTOS Bowl" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">G8RTOS Bowl</h2>
+            <p class="project-description">Custom RTOS from Scratch with Football Game built on it</p>
+          </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a href="/projects/2_project/" class="project-item">
+          <img src="/assets/img/1d_long.png" alt="Convolution & Custom DRAM Interface" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">Convolution & Custom DRAM Interface</h2>
+            <p class="project-description">Custom DRAM interface for emulated external block memory and convolution pipeline</p>
+          </div>
+        </a>
+
+        <!-- Project 3 -->
+        <a href="/projects/3_project/" class="project-item">
+          <img src="/assets/img/hh_black.png" alt="Happy Head" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">Happy Head</h2>
+            <p class="project-description">Modular IoT safety platform</p>
+          </div>
+        </a>
+
+        <!-- Project 4 -->
+        <a href="/projects/4_project/" class="project-item">
+          <img src="/assets/img/piano.png" alt="Embedded Synthesizer" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">Embedded Synthesizer</h2>
+            <p class="project-description">Simple piano designed with UART, DMA, and DAC</p>
+          </div>
+        </a>
+
+        <!-- Project 6 -->
+        <a href="/projects/6_project/" class="project-item">
+          <img src="/assets/img/emb.png" alt="Mini Embedded Projects" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">Mini Embedded Projects</h2>
+            <p class="project-description">Culmination of smaller scale Embedded Projects</p>
+          </div>
+        </a>
+
+        <!-- Project 8 -->
+        <a href="/projects/8_project/" class="project-item">
+          <img src="/assets/img/rt.png" alt="Mini RTL Projects" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">Mini RTL Projects</h2>
+            <p class="project-description">Culmination of smaller scale RTL Projects</p>
+          </div>
+        </a>
+
+        <!-- Project 7 -->
+        <a href="/projects/7_project/" class="project-item">
+          <img src="/assets/img/urbana.jpg" alt="Vitis/Vivado Tutorials" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">Vitis/Vivado Tutorials</h2>
+            <p class="project-description">Tutorials I made to teach Xilinx tools in a simple format</p>
+          </div>
+        </a>
+
+        <!-- Project 5 -->
+        <a href="/projects/5_project/" class="project-item">
+          <img src="/assets/img/7.png" alt="Optimization of Grating Couplers" class="project-image">
+          <div class="project-content">
+            <h2 class="project-title">Optimization of Grating Couplers</h2>
+            <p class="project-description">Surrogate-accelerated genetic optimization for photonic coupler design</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('portfolio-theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        
+        function updateThemeIcon() {
+          if (!sunIcon || !moonIcon) return;
+          
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          if (isDark) {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+          } else {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+          }
+        }
+        
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Get current theme from localStorage or attribute
+            const currentTheme = localStorage.getItem('theme') || document.documentElement.getAttribute('data-theme') || 'dark';
+            
+            // Call toggleTheme function from theme.js (should be available globally)
+            try {
+              if (typeof toggleTheme === 'function') {
+                toggleTheme(currentTheme);
+              } else {
+                // Fallback: manually toggle
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+              }
+            } catch (error) {
+              // If toggleTheme fails, manually toggle
+              const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+              document.documentElement.setAttribute('data-theme', newTheme);
+              localStorage.setItem('theme', newTheme);
+            }
+            
+            // Update icon after theme changes
+            setTimeout(updateThemeIcon, 150);
+          });
+          
+          // Update icon on page load
+          updateThemeIcon();
+          
+          // Watch for theme changes to update icon
+          const observer = new MutationObserver(function() {
+            updateThemeIcon();
+          });
+          observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+          });
+        }
+      });
+    </script>
+
+  </body>
+</html>

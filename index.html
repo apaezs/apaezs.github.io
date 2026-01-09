@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Alejandro Paez</title>
+    <meta name="author" content="Alejandro Paez" />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
+    <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous" />
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="none" id="highlight_theme_light" />
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://apaezs.github.io/">
+    
+    <!-- Dark Mode -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark" />
+
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+    
+    <style>
+      /* Portfolio Hero Layout */
+      .portfolio-hero-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        z-index: 1000;
+      }
+      
+      body.fixed-top-nav {
+        padding-top: 0 !important;
+        overflow: hidden !important;
+        height: 100vh !important;
+      }
+      
+      html {
+        overflow: hidden !important;
+        height: 100vh !important;
+      }
+      
+      /* Hide navbar */
+      header,
+      .navbar,
+      nav.navbar {
+        display: none !important;
+      }
+      
+      .portfolio-hero-left {
+        width: 50%;
+        padding: 2rem;
+        font-family: 'Courier New', monospace;
+        position: relative;
+        z-index: 10;
+        background: white;
+        color: black;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      [data-theme="dark"] .portfolio-hero-left {
+        background: black;
+        color: white;
+      }
+      
+      .portfolio-hero-right {
+        width: 50%;
+        position: relative;
+        background: black;
+      }
+      
+      [data-theme="dark"] .portfolio-hero-right {
+        background: hsl(0, 0%, 0%);
+      }
+      
+      .theme-toggle-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      .portfolio-hero-left:hover .theme-toggle-btn,
+      .theme-toggle-btn:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .portfolio-hero-left:hover .theme-toggle-btn,
+      [data-theme="dark"] .theme-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .portfolio-hero-header {
+        margin-bottom: 3rem;
+      }
+      
+      .portfolio-hero-header h1 {
+        font-size: 1.125rem;
+        font-weight: normal;
+        margin-bottom: 2rem;
+      }
+      
+      .portfolio-hero-header h2,
+      .portfolio-hero-header h3 {
+        font-size: 1.125rem;
+        font-weight: normal;
+        margin-bottom: 0.5rem;
+      }
+      
+      .portfolio-hero-name br {
+        display: none;
+      }
+      
+      .portfolio-hero-experience {
+        margin-bottom: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      .portfolio-hero-experience-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      
+      .portfolio-hero-experience-section-title {
+        font-size: 0.875rem;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+        opacity: 0.7;
+      }
+      
+      .portfolio-hero-experience-item {
+        display: flex;
+        font-size: 1rem;
+      }
+      
+      .portfolio-hero-experience-company {
+        width: 5rem;
+      }
+      
+      .portfolio-hero-experience-title {
+        margin: 0 0.5rem;
+        flex: 1;
+      }
+      
+      .portfolio-hero-experience-dates {
+        margin: 0 1rem;
+        min-width: 12rem;
+        text-align: right;
+      }
+      
+      .portfolio-hero-experience-extra {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        margin-left: 0;
+        opacity: 0.8;
+        text-align: left;
+      }
+      
+      .portfolio-hero-experience-extra.languages-tools-equipment {
+        margin-top: 1rem;
+        text-align: center;
+      }
+      
+      .portfolio-hero-experience-extra a {
+        color: inherit;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      
+      .mobile-courses-text {
+        display: none;
+      }
+      
+      .desktop-courses-text {
+        display: inline;
+      }
+      
+      .portfolio-hero-experience-extra a {
+        color: inherit;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      
+      .portfolio-hero-courses {
+        margin-top: 2rem;
+        font-size: 0.875rem;
+      }
+      
+      .portfolio-hero-courses h3 {
+        font-size: 1rem;
+        font-weight: normal;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.7;
+      }
+      
+      .portfolio-hero-courses ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+      }
+      
+      .portfolio-hero-courses li {
+        margin-bottom: 0.5rem;
+      }
+      
+      /* Projects2 Animated Card Stack Styles */
+      .portfolio-hero-projects2 {
+        position: absolute;
+        top: 50%;
+        left: 2rem;
+        right: 2rem;
+        transform: translateY(-50%);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      
+      .animated-card-stack-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 0.5rem;
+      }
+      
+      .animated-card-stack-wrapper {
+        width: 100%;
+        max-width: 644px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .animated-cards-container {
+        position: relative;
+        width: 100%;
+        height: 380px;
+        overflow: hidden;
+      }
+      
+      .animated-card {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        width: 324px;
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 0.75rem 0.75rem 0 0;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: none;
+        background: white;
+        padding: 0.25rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), scale 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        will-change: transform;
+        user-select: none;
+      }
+      
+      .animated-card:first-child {
+        cursor: grab;
+      }
+      
+      .animated-card:first-child:active {
+        cursor: grabbing;
+      }
+      
+      [data-theme="dark"] .animated-card {
+        background: black;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .animated-card-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .animated-card-image-wrapper {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 0.75rem;
+        outline: 1px solid rgba(0, 0, 0, 0.1);
+        outline-offset: -1px;
+      }
+      
+      [data-theme="dark"] .animated-card-image-wrapper {
+        outline-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .animated-card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        user-select: none;
+      }
+      
+      .animated-card-info {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0 0.75rem 1.5rem 0.75rem;
+      }
+      
+      .animated-card-text {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+      }
+      
+      .animated-card-title {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: inherit;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0.25rem;
+      }
+      
+      .animated-card-description {
+        font-size: 0.875rem;
+        color: rgba(0, 0, 0, 0.6);
+        opacity: 0.7;
+      }
+      
+      [data-theme="dark"] .animated-card-description {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      
+      .animated-card-button {
+        display: flex;
+        height: 2.5rem;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        align-items: center;
+        gap: 0.125rem;
+        border-radius: 9999px;
+        background: black;
+        padding-left: 1rem;
+        padding-right: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: white;
+        transition: all 0.2s;
+        text-decoration: none;
+        pointer-events: auto;
+      }
+      
+      .animated-card-button:hover {
+        opacity: 0.9;
+      }
+      
+      [data-theme="dark"] .animated-card-button {
+        background: black;
+        color: white;
+      }
+      
+      .animated-card-button:hover {
+        opacity: 0.9;
+      }
+      
+      .animated-card-button svg {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .animated-card-stack-controls {
+        position: relative;
+        z-index: 10;
+        margin-top: -1px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+      }
+      
+      [data-theme="dark"] .animated-card-stack-controls {
+        border-top-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .animate-cards-button {
+        display: flex;
+        height: 2.25rem;
+        width: 2.25rem;
+        cursor: pointer;
+        user-select: none;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: white;
+        padding: 0;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.6);
+        transition: all 0.2s;
+        font-size: 0.875rem;
+      }
+      
+      [data-theme="dark"] .animate-cards-button {
+        background: black;
+        border-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.6);
+      }
+      
+      .animate-cards-button:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      
+      [data-theme="dark"] .animate-cards-button:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .animate-cards-button:active {
+        transform: scale(0.98);
+      }
+      
+      .animate-cards-button svg {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .see-all-button {
+        width: auto !important;
+        padding: 0 0.75rem !important;
+        text-decoration: none;
+      }
+      
+      @media (min-width: 640px) {
+        .animated-card {
+          width: 512px;
+        }
+      }
+      
+      .portfolio-hero-footer {
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+      }
+      
+      .portfolio-hero-footer-links {
+        display: flex;
+        gap: 1rem;
+        font-size: 1.125rem;
+        font-family: 'Courier New', monospace;
+      }
+      
+      .portfolio-hero-footer-links-row {
+        display: contents;
+      }
+      
+      .portfolio-hero-footer-links a {
+        color: inherit;
+        text-decoration: none;
+      }
+      
+      .portfolio-hero-footer-links a:hover {
+        text-decoration: underline;
+      }
+      
+      #dithering-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      
+      @media (max-width: 768px) {
+        .portfolio-hero-container {
+          flex-direction: row;
+        }
+        
+        .portfolio-hero-left {
+          width: 75%;
+          height: 100vh;
+          overflow-y: auto;
+          padding: 1.5rem;
+        }
+        
+        .portfolio-hero-right {
+          width: 25%;
+          height: 100vh;
+        }
+        
+        .portfolio-hero-header {
+          margin-bottom: 1.5rem;
+        }
+        
+        .portfolio-hero-header h3 {
+          display: none;
+        }
+        
+        .portfolio-hero-header h2 {
+          line-height: 1.4;
+        }
+        
+        .portfolio-hero-name br {
+          display: block;
+        }
+        
+        .portfolio-hero-footer {
+          position: absolute;
+          bottom: 8rem;
+          left: 1.5rem;
+          right: 1.5rem;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        
+        .portfolio-hero-footer-links {
+          flex-direction: column;
+          gap: 0.75rem;
+          align-items: flex-start;
+        }
+        
+        .portfolio-hero-footer-links a {
+          text-decoration: underline;
+        }
+        
+        .portfolio-hero-footer-links-row {
+          display: flex;
+          gap: 1rem;
+          width: 100%;
+        }
+        
+        #bio-section {
+          font-size: 0.7rem;
+          text-align: left !important;
+          margin-top: 2.5rem !important;
+        }
+        
+        #bio-section p {
+          text-align: left !important;
+          text-align-last: left !important;
+          font-size: 0.7rem !important;
+        }
+        
+        #experience-section {
+          font-size: 0.7rem;
+        }
+        
+        #experience-section * {
+          font-size: 0.7rem !important;
+        }
+        
+        .portfolio-hero-experience-dates {
+          min-width: auto !important;
+          text-align: right !important;
+          margin-left: auto !important;
+          max-width: 100%;
+          word-break: keep-all;
+          white-space: nowrap;
+        }
+        
+        .portfolio-hero-experience-item {
+          flex-wrap: wrap;
+        }
+        
+        .portfolio-hero-experience-title {
+          max-width: 60%;
+          word-break: break-word;
+        }
+        
+        .mobile-courses-text {
+          display: inline !important;
+        }
+        
+        .desktop-courses-text {
+          display: none !important;
+        }
+        
+        #projects2-section {
+          font-size: 0.7rem;
+          left: 0 !important;
+          right: 1.5rem;
+          top: auto !important;
+          transform: none !important;
+          position: relative !important;
+          margin-top: -2rem;
+        }
+        
+        .animated-card {
+          width: 280px !important;
+        }
+        
+        .animated-cards-container {
+          height: 320px;
+        }
+      }
+    </style>
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav ">
+
+    <!-- PORTFOLIO HERO LAYOUT -->
+    <div class="portfolio-hero-container">
+      <div class="portfolio-hero-left">
+        <!-- Theme toggle button -->
+        <button
+          id="portfolio-theme-toggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle theme"
+        >
+          <svg id="theme-icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <svg id="theme-icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+
+        <!-- Header -->
+        <div class="portfolio-hero-header">
+          <h1>Alejandro.cv</h1>
+          <div>
+            <h2 class="portfolio-hero-name">ALEJANDRO<br> PAEZ-SANSONETTI</h2>
+            <h3>RTL Design | Embedded Systems | VLSI </h3>
+            
+            <div id="bio-section" style="margin-top: 5rem; max-width: 90%; display: none;">
+              <p style="margin-top: 0; margin-bottom: 1rem; font-size: 1rem; line-height: 1.6; text-align: justify;">Hi, I'm Alejandro and I am currently pursuing a B.S. in Electrical Engineering at the University of Florida.</p>
+
+              <p style="margin-top: 0; margin-bottom: 1rem; font-size: 1rem; line-height: 1.6; text-align: justify;">I am also currently involed in UF's SmartSystems Lab exploring hardware acceleration for machine learning applications and work as an undergraduate teaching assistant for the course EEL 4744: Microprocessor Applications. Next summer I will be interning at Texas Instruments as a Mixed Signal Design Verification Engineer.</p>
+
+              <p style="margin-top: 0; margin-bottom: 0; font-size: 1rem; line-height: 1.6; text-align: justify;">I built this website to showcase my completed or ongoing projects.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div id="experience-section" class="portfolio-hero-experience" style="display: none;">
+          <!-- Education -->
+          <div class="portfolio-hero-experience-section">
+            <div class="portfolio-hero-experience-section-title">Education</div>
+            <div class="portfolio-hero-experience-item">
+              <span class="portfolio-hero-experience-company">UF</span>
+              <span class="portfolio-hero-experience-title">B.S. EE</span>
+              <span class="portfolio-hero-experience-dates">2024 → ...</span>
+            </div>
+            <div class="portfolio-hero-experience-extra">
+              GPA: 4.00 | Honors Program | <a href="#" id="courses-toggle"><span class="desktop-courses-text">Relevant Courses</span><span class="mobile-courses-text">Courses</span></a>
+            </div>
+          </div>
+          
+          <!-- Incoming -->
+          <div class="portfolio-hero-experience-section">
+            <div class="portfolio-hero-experience-section-title">Incoming</div>
+            <div class="portfolio-hero-experience-item">
+              <span class="portfolio-hero-experience-company">TI</span>
+              <span class="portfolio-hero-experience-title">DV Intern</span>
+              <span class="portfolio-hero-experience-dates">Summer 2026</span>
+            </div>
+          </div>
+          
+          <!-- Current/Previous -->
+          <div class="portfolio-hero-experience-section">
+            <div class="portfolio-hero-experience-section-title">Current</div>
+            <div class="portfolio-hero-experience-item">
+              <span class="portfolio-hero-experience-company">UF</span>
+              <span class="portfolio-hero-experience-title">SmartSystems Lab RA</span>
+              <span class="portfolio-hero-experience-dates">2024 → ...</span>
+            </div>
+            <div class="portfolio-hero-experience-item">
+              <span class="portfolio-hero-experience-company">UF</span>
+              <span class="portfolio-hero-experience-title">EEL4744 TA</span>
+              <span class="portfolio-hero-experience-dates">2024 → ...</span>
+            </div>
+            <div class="portfolio-hero-experience-extra languages-tools-equipment">
+              <a href="#" id="languages-toggle">Languages</a> | <a href="#" id="tools-toggle">Tools</a> | <a href="#" id="equipment-toggle">Equipment</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Courses List Section -->
+        <div id="courses-section" class="portfolio-hero-courses" style="display: none;">
+          <h3>Relevant Courses</h3>
+          <ul>
+            <li>EEL6935 Reconfigurable Computing 2</li>
+            <li>EEL4720 Reconfigurable Computing</li>
+            <li>EEE4310 VLSI Circuits & Technology</li>
+            <li>EEL4745 Real Time Operating Systems (Microp. Apps. 2)</li>
+            <li>EEL4712 Digital Design</li>
+          </ul>
+        </div>
+        
+        <!-- Languages List Section -->
+        <div id="languages-section" class="portfolio-hero-courses" style="display: none;">
+          <h3>Languages</h3>
+          <ul>
+            <li>VHDL</li>
+            <li>SystemVerilog (UVM)</li>
+            <li>C</li>
+            <li>C++</li>
+            <li>Python</li>
+            <li>MATLAB</li>
+            <li>TCL</li>
+            <li>Assembly: ARM, AVR</li>
+          </ul>
+        </div>
+        
+        <!-- Tools List Section -->
+        <div id="tools-section" class="portfolio-hero-courses" style="display: none;">
+          <h3>Tools</h3>
+          <ul>
+            <li>Quartus</li>
+            <li>Vivado</li>
+            <li>QuestaSim</li>
+            <li>Cadence Virtuoso</li>
+            <li>iCEcube2</li>
+            <li>Jupyter</li>
+            <li>Git</li>
+            <li>Waveforms</li>
+            <li>CAD</li>
+            <li>Arduino</li>
+          </ul>
+        </div>
+        
+        <!-- Equipment List Section -->
+        <div id="equipment-section" class="portfolio-hero-courses" style="display: none;">
+          <h3>Equipment</h3>
+          <ul>
+            <li>function generators</li>
+            <li>oscilloscopes</li>
+            <li>multimeters</li>
+            <li>network analyzers</li>
+            <li>spectrum analyzers</li>
+            <li>logic analyzers</li>
+          </ul>
+        </div>
+
+        <!-- Projects2 Animated Card Stack Section -->
+        <div id="projects2-section" class="portfolio-hero-projects2" style="display: none;">
+          <div class="animated-card-stack-container">
+            <div class="animated-card-stack-wrapper">
+              <div id="animated-cards-container" class="animated-cards-container"></div>
+              <div class="animated-card-stack-controls">
+                <button id="scroll-cards-up-btn" class="animate-cards-button" title="Scroll up">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                    <path d="M18 15L12 9L6 15" />
+                  </svg>
+                </button>
+                <button id="scroll-cards-down-btn" class="animate-cards-button" title="Scroll down">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                    <path d="M6 9L12 15L18 9" />
+                  </svg>
+                </button>
+                <a href="/projects/" class="animate-cards-button see-all-button" title="See all projects">See All</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Links Section -->
+        <div class="portfolio-hero-footer">
+          <div class="portfolio-hero-footer-links">
+            <div class="portfolio-hero-footer-links-row">
+              <a href="#" id="bio-toggle" style="cursor: pointer;">Bio</a>
+              <a href="#" id="experience-toggle" style="cursor: pointer;">Experience</a>
+            </div>
+            <div class="portfolio-hero-footer-links-row">
+              <a href="#" id="projects2-toggle" style="cursor: pointer;">Projects</a>
+              <a href="https://github.com/apaezs" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+            <div class="portfolio-hero-footer-links-row">
+            <a href="mailto:apaezsansonetti@ufl.edu">Email</a>
+            <a href="https://www.linkedin.com/in/alejandropaezs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-hero-right">
+        <canvas id="dithering-canvas"></canvas>
+      </div>
+    </div>
+    <!-- END ALTERNATE PORTFOLIO HERO LAYOUT -->
+    
+    <!-- ORIGINAL CONTENT (COMMENTED OUT)
+    <header>
+
+      <!-- Nav Bar -->
+      <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+        <div class="container">
+          <!-- Social Icons -->
+          <div class="navbar-brand social">
+            <a href="mailto:apaezsansonetti@ufl.edu" title="email"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/apaezs" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/alejandropaezs" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://apaezs.github.io/feed.xml" title="RSS Feed"><i class="fas fa-rss-square"></i></a>
+            
+          </div>
+          
+          <!-- Navbar Toggle -->
+          <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+          </button>
+
+          <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+
+              <!-- About -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/">about<span class="sr-only">(current)</span></a>
+              </li>
+              
+              <!-- Other pages -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/projects/">projects</a>
+              </li>
+
+              <!-- Toogle theme mode -->
+              <div class="toggle-container">
+                <a id="light-toggle">
+                  <i class="fas fa-moon"></i>
+                  <i class="fas fa-sun"></i>
+                </a>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container mt-5">
+      <!-- about.html -->
+      <div class="post">
+        <header class="post-header">
+          <h1 class="post-title">
+           <span class="font-weight-bold">Alejandro</span>  Paez-Sansonetti
+          </h1>
+          <p class="desc">
+            <a href="https://github.com/apaezs" target="_blank" rel="noopener noreferrer">Code</a>
+            <a href="https://www.linkedin.com/in/alejandropaezs" target="_blank" rel="noopener noreferrer">Connect</a>
+          </p>
+                  </header>
+        <article>
+          <div class="profile float-right">
+<figure>
+
+  <picture>
+    <!-- <source media="(max-width: 480px)" srcset="/assets/img/prof_pic-480.webp" />
+    <source media="(max-width: 800px)" srcset="/assets/img/prof_pic-800.webp" />
+    <source media="(max-width: 1400px)" srcset="/assets/img/prof_pic-1400.webp" />
+    -->
+
+    <!-- Fallback to the original file -->
+    <img class="img-fluid z-dept-1 rounded" src="/assets/img/prof_pic1.png" alt="prof_pic.png">
+
+  </picture>
+
+</figure>
+
+            <div class="address">
+              <p>Located in Gainesville, FL</p>
+
+            </div>
+          </div>
+
+          <div class="clearfix">
+            <p>Hi, I'm Alejandro. </p>
+
+<p>I am currently pursuing a B.S. in Electrical Engineering at the University of Florida, with interests in digital design, verification, embedded systems, VLSI, and hardware acceleration. </p>
+
+<p>I also am currently involed in UF's Smart Systems Laboratory exploring hardware acceleration for machine learning applications and work as an undergraduate teaching assistant for the course EEL 4744: Microprocessor Applications. Next summer I will be interning at Texas Instruments as a Mixed Signal Design Verification Engineer.</p>
+
+<p>I built this website to showcase my completed or ongoing projects.</p>
+<p>  Contact me at
+  <a href="mailto:apaezsansonetti@ufl.edu">apaezsansonetti@ufl.edu</a>
+  if you have any questions!
+</p>
+
+<p></p>
+
+          </div>
+          
+          <!-- Cloud 3D Model -->
+          <div id="model-container" style="width:100%; height:400px; min-height:400px; cursor: grab;"></div>
+
+
+          <!-- News -->          
+          <!-- <div class="news">
+            <h2>news</h2>
+            <div class="table-responsive">
+              <table class="table table-sm table-borderless"> 
+                <tr>
+                  <th scope="row">May 22, 2022</th>
+                  <td>
+                    Looking to show appreciation? <a href="https://ko-fi.com/apaezs" target="_blank" rel="noopener noreferrer">Buy me a coffee!</a>
+ 
+                  </td>
+                </tr> 
+                <tr>
+                  <th scope="row">Mar 21, 2022</th>
+                  <td>
+                    I created my <a href="https://youtu.be/-UJJm_VMSdU" target="_blank" rel="noopener noreferrer">first YouTube short!</a>
+ 
+                  </td>
+                </tr> 
+                <tr>
+                  <th scope="row">Mar 10, 2022</th>
+                  <td>
+                    First Video: Applied K-Means Clustering in R to reach more than 10,000 views!
+ 
+                  </td>
+                </tr> 
+                <tr>
+                  <th scope="row">Mar 1, 2022</th>
+                  <td>
+                    <a class="news-title" href="/news/announcement_2/">A Not So Long Announcement.</a> 
+                  </td>
+                </tr> 
+                <tr>
+                  <th scope="row">Mar 1, 2022</th>
+                  <td>
+                    Website Created!
+ 
+                  </td>
+                </tr> 
+              </table>
+            </div> 
+          </div> -->
+
+          
+          <!-- Social -->
+          <div class="social">
+            <div class="contact-icons">
+            <a href="mailto:apaezsansonetti@ufl.edu" title="email"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/apaezs" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/alejandropaezs" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://apaezs.github.io/feed.xml" title="RSS Feed"><i class="fas fa-rss-square"></i></a>
+            
+            </div>
+
+            <div class="contact-note">
+              
+
+            </div>
+            
+          </div>
+        </article>
+
+</div>
+
+    </div>
+    END OF ORIGINAL CONTENT -->
+
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js" integrity="sha256-l/1pMF/+J4TThfgARS6KwWrk/egwuVvhRzfLAMQ6Ds4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha256-SyTu6CwrfOhaznYZPoolVw2rxoY7lKYKQvqbtqN93HI=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
+    
+  <!-- Medium Zoom JS -->
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+  <script src="/assets/js/zoom.js"></script><!-- Load Common JS -->
+  <script src="/assets/js/common.js"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  
+  <!-- Portfolio Hero Theme Toggle -->
+  <script>
+    (function() {
+      const themeToggle = document.getElementById('portfolio-theme-toggle');
+      const sunIcon = document.getElementById('theme-icon-sun');
+      const moonIcon = document.getElementById('theme-icon-moon');
+      
+      function updateThemeIcon() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          sunIcon.style.display = 'block';
+          moonIcon.style.display = 'none';
+        } else {
+          sunIcon.style.display = 'none';
+          moonIcon.style.display = 'block';
+        }
+      }
+      
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          const lightToggle = document.getElementById('light-toggle');
+          if (lightToggle) {
+            lightToggle.click();
+            setTimeout(updateThemeIcon, 100);
+          }
+        });
+        
+        // Update icon on page load
+        window.addEventListener('DOMContentLoaded', updateThemeIcon);
+        updateThemeIcon();
+      }
+    })();
+  </script>
+  
+  <!-- Encrypted Text Animation for Name -->
+  <script>
+    (function() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+      
+      function getRandomChar() {
+        return chars[Math.floor(Math.random() * chars.length)];
+      }
+      
+      function animateName(element, originalText, delay = 50) {
+        if (!element || !originalText) return;
+        
+        // Split text at the line break position
+        const parts = originalText.split('PAEZ-SANSONETTI');
+        const firstPart = parts[0].trim(); // "ALEJANDRO"
+        const secondPart = 'PAEZ-SANSONETTI';
+        const fullText = firstPart + ' ' + secondPart;
+        
+        let currentIndex = 0;
+        const totalLength = fullText.length;
+        const brPosition = firstPart.length;
+        
+        function updateDisplay() {
+          const revealed = fullText.substring(0, currentIndex);
+          const encrypted = fullText.substring(currentIndex).split('').map(() => getRandomChar()).join('');
+          
+          // Combine revealed and encrypted, inserting <br> at the right position
+          let displayText = '';
+          for (let i = 0; i < revealed.length + encrypted.length; i++) {
+            if (i === brPosition) {
+              displayText += '<br> ';
+            }
+            if (i < revealed.length) {
+              displayText += revealed[i];
+            } else if (i >= revealed.length) {
+              displayText += encrypted[i - revealed.length];
+            }
+          }
+          
+          // Handle case where we haven't reached brPosition yet
+          if (currentIndex <= brPosition) {
+            const beforeBr = (revealed + encrypted).substring(0, brPosition);
+            const afterBr = (revealed + encrypted).substring(brPosition);
+            displayText = beforeBr + '<br> ' + afterBr;
+          }
+          
+          element.innerHTML = displayText;
+        }
+        
+        // Initial encrypted state
+        updateDisplay();
+        
+        function revealNextChar() {
+          if (currentIndex < totalLength) {
+            currentIndex++;
+            updateDisplay();
+            setTimeout(revealNextChar, delay);
+          } else {
+            // Ensure final text is correct with <br>
+            element.innerHTML = firstPart + '<br> ' + secondPart;
+          }
+        }
+        
+        setTimeout(revealNextChar, delay);
+      }
+      
+      window.addEventListener('DOMContentLoaded', function() {
+        const nameElement = document.querySelector('.portfolio-hero-name');
+        if (nameElement) {
+          // Get the original text content (this will include the text from both sides of <br>)
+          const originalText = nameElement.textContent;
+          
+          // Animate the text content
+          animateName(nameElement, originalText, 50);
+        }
+      });
+    })();
+  </script>
+  
+  <!-- Bio Toggle Script -->
+  <script>
+    (function() {
+      const bioToggle = document.getElementById('bio-toggle');
+      const bioSection = document.getElementById('bio-section');
+      const experienceSection = document.getElementById('experience-section');
+      const projects2Section = document.getElementById('projects2-section');
+      
+      function closeAllDetailSections() {
+        const sections = ['courses-section', 'languages-section', 'tools-section', 'equipment-section'];
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.style.display = 'none';
+          }
+        });
+      }
+      
+      if (bioToggle && bioSection) {
+        bioToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Always close all detail sections first
+          closeAllDetailSections();
+          if (bioSection.style.display === 'none' || bioSection.style.display === '') {
+            bioSection.style.display = 'block';
+            // Close experience and projects2 if open
+            if (experienceSection) {
+              experienceSection.style.display = 'none';
+            }
+            if (projects2Section) {
+              projects2Section.style.display = 'none';
+            }
+          } else {
+            bioSection.style.display = 'none';
+          }
+        });
+      }
+    })();
+  </script>
+  
+  <!-- Experience Toggle Script -->
+  <script>
+    (function() {
+      const experienceToggle = document.getElementById('experience-toggle');
+      const experienceSection = document.getElementById('experience-section');
+      const bioSection = document.getElementById('bio-section');
+      const projects2Section = document.getElementById('projects2-section');
+      const coursesSection = document.getElementById('courses-section');
+      
+      function closeAllDetailSections() {
+        const sections = ['courses-section', 'languages-section', 'tools-section', 'equipment-section'];
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.style.display = 'none';
+          }
+        });
+      }
+      
+      if (experienceToggle && experienceSection) {
+        experienceToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Always close all detail sections first
+          closeAllDetailSections();
+          if (experienceSection.style.display === 'none' || experienceSection.style.display === '') {
+            experienceSection.style.display = 'flex';
+            // Close bio and projects2 if open
+            if (bioSection) {
+              bioSection.style.display = 'none';
+            }
+            if (projects2Section) {
+              projects2Section.style.display = 'none';
+            }
+          } else {
+            experienceSection.style.display = 'none';
+          }
+        });
+      }
+    })();
+  </script>
+  
+  <!-- Courses Toggle Script -->
+  <script>
+    (function() {
+      function closeAllDetailSections(exceptSection) {
+        const sections = ['courses-section', 'languages-section', 'tools-section', 'equipment-section'];
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section && section !== exceptSection) {
+            section.style.display = 'none';
+          }
+        });
+      }
+      
+      const coursesToggle = document.getElementById('courses-toggle');
+      const coursesSection = document.getElementById('courses-section');
+      const experienceSection = document.getElementById('experience-section');
+      
+      if (coursesToggle && coursesSection) {
+        coursesToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Close experience section
+          if (experienceSection) {
+            experienceSection.style.display = 'none';
+          }
+          // Close other sections
+          closeAllDetailSections(coursesSection);
+          // Show courses section
+          if (coursesSection.style.display === 'none' || coursesSection.style.display === '') {
+            coursesSection.style.display = 'block';
+          } else {
+            coursesSection.style.display = 'none';
+          }
+        });
+      }
+    })();
+  </script>
+  
+  <!-- Languages, Tools, Equipment Toggle Scripts -->
+  <script>
+    (function() {
+      function closeAllDetailSections(exceptSection) {
+        const sections = ['courses-section', 'languages-section', 'tools-section', 'equipment-section'];
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section && section !== exceptSection) {
+            section.style.display = 'none';
+          }
+        });
+      }
+      
+      function setupToggle(toggleId, sectionId) {
+        const toggle = document.getElementById(toggleId);
+        const section = document.getElementById(sectionId);
+        const experienceSection = document.getElementById('experience-section');
+        
+        if (toggle && section) {
+          toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Close experience section
+            if (experienceSection) {
+              experienceSection.style.display = 'none';
+            }
+            // Close other sections
+            closeAllDetailSections(section);
+            // Show this section (always show when clicked, since experience is closed)
+            section.style.display = 'block';
+            section.style.setProperty('display', 'block', 'important');
+          });
+        }
+      }
+      
+      // Wait for DOM to be ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          setupToggle('languages-toggle', 'languages-section');
+          setupToggle('tools-toggle', 'tools-section');
+          setupToggle('equipment-toggle', 'equipment-section');
+        });
+      } else {
+        setupToggle('languages-toggle', 'languages-section');
+        setupToggle('tools-toggle', 'tools-section');
+        setupToggle('equipment-toggle', 'equipment-section');
+      }
+    })();
+  </script>
+  
+  <!-- Projects2 Toggle Script -->
+  <script>
+    (function() {
+      const projects2Toggle = document.getElementById('projects2-toggle');
+      const projects2Section = document.getElementById('projects2-section');
+      const bioSection = document.getElementById('bio-section');
+      const experienceSection = document.getElementById('experience-section');
+      
+      function closeAllDetailSections() {
+        const sections = ['courses-section', 'languages-section', 'tools-section', 'equipment-section'];
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.style.display = 'none';
+          }
+        });
+      }
+      
+      if (projects2Toggle && projects2Section) {
+        projects2Toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Always close all detail sections first
+          closeAllDetailSections();
+          if (projects2Section.style.display === 'none' || projects2Section.style.display === '') {
+            projects2Section.style.display = 'block';
+            // Close bio and experience if open
+            if (bioSection) {
+              bioSection.style.display = 'none';
+            }
+            if (experienceSection) {
+              experienceSection.style.display = 'none';
+            }
+            // Initialize cards if not already initialized
+            if (!window.projects2Initialized) {
+              initializeAnimatedCards();
+              window.projects2Initialized = true;
+            }
+          } else {
+            projects2Section.style.display = 'none';
+          }
+        });
+      }
+    })();
+  </script>
+  
+  <!-- Animated Card Stack Script -->
+  <script>
+    (function() {
+      // Projects data from your projects page
+      const projectsData = [
+        {
+          id: 1,
+          title: "G8RTOS Bowl",
+          description: "Custom RTOS from Scratch with Football Game built on it",
+          image: "/assets/img/g8_long.png",
+          link: "/projects/1_project/"
+        },
+        {
+          id: 2,
+          title: "1D Convolution & Custom DRAM Interface",
+          description: "Custom DRAM interface for emulated external block memory and convolution pipeline",
+          image: "/assets/img/1d.jpg.png",
+          link: "/projects/2_project/"
+        },
+        {
+          id: 3,
+          title: "Happy Head",
+          description: "Modular IoT safety platform",
+          image: "/assets/img/hh_long.png",
+          link: "/projects/3_project/"
+        },
+        {
+          id: 4,
+          title: "Embedded Synthesizer",
+          description: "Simple piano designed with UART, DMA, and DAC",
+          image: "/assets/img/synth_long.png",
+          link: "/projects/4_project/"
+        },
+        {
+          id: 6,
+          title: "Mini Embedded Projects",
+          description: "Culmination of smaller scale Embedded Projects",
+          image: "/assets/img/emb.png",
+          link: "/projects/6_project/"
+        },
+        {
+          id: 8,
+          title: "Mini RTL Projects",
+          description: "Culmination of smaller scale RTL Projects",
+          image: "/assets/img/rt.png",
+          link: "/projects/8_project/"
+        },
+        {
+          id: 7,
+          title: "Vitis/Vivado Tutorials",
+          description: "Tutorials I made to teach Xilinx tools in a simple format",
+          image: "/assets/img/urbana_long.png",
+          link: "/projects/7_project/"
+        },
+        {
+          id: 5,
+          title: "Optimization of Grating Couplers",
+          description: "Surrogate-accelerated genetic optimization for photonic coupler design",
+          image: "/assets/img/coupler_long.png",
+          link: "/projects/5_project/"
+        }
+      ];
+      
+      // Position styles for cards (scale, y offset)
+      const positionStyles = [
+        { scale: 1, y: 12 },
+        { scale: 0.95, y: -16 },
+        { scale: 0.9, y: -44 }
+      ];
+      
+      let currentCardIndices = [0, 1, 2]; // Track indices in projectsData array
+      let isAnimating = false;
+      
+      // Drag-to-scroll variables
+      let isDragging = false;
+      let dragStartY = 0;
+      let dragThreshold = 50; // Minimum drag distance to trigger scroll
+      
+      function createCardElement(projectIndex, displayIndex) {
+        const card = projectsData[projectIndex];
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'animated-card';
+        cardDiv.dataset.projectIndex = projectIndex;
+        
+        const { scale, y } = positionStyles[displayIndex] || positionStyles[2];
+        const zIndex = displayIndex === 0 && isAnimating ? 10 : 3 - displayIndex;
+        
+        cardDiv.style.transform = `translateX(-50%) translateY(${y}px) scale(${scale})`;
+        cardDiv.style.zIndex = zIndex;
+        
+        const cardContent = `
+          <div class="animated-card-content">
+            <div class="animated-card-image-wrapper">
+              <img src="${card.image}" alt="${card.title}" class="animated-card-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'324\' height=\'200\'%3E%3Crect width=\'324\' height=\'200\' fill=\'%23ccc\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\'%3EImage not found%3C/text%3E%3C/svg%3E'">
+            </div>
+            <div class="animated-card-info">
+              <div class="animated-card-text">
+                <span class="animated-card-title">${card.title}</span>
+                <span class="animated-card-description">${card.description}</span>
+              </div>
+              <a href="${card.link}" class="animated-card-button">
+                Read
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                  <path d="M9.5 18L15.5 12L9.5 6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        `;
+        
+        cardDiv.innerHTML = cardContent;
+        
+        return cardDiv;
+      }
+      
+      function attachDragListenerToTopCard() {
+        const container = document.getElementById('animated-cards-container');
+        if (!container || container.children.length === 0) return;
+        
+        // Update cursor styles for all cards
+        Array.from(container.children).forEach((card, index) => {
+          if (index === 0) {
+            card.style.cursor = 'grab';
+          } else {
+            card.style.cursor = '';
+          }
+        });
+      }
+      
+      // Use event delegation on the container
+      function setupDragDelegation() {
+        const container = document.getElementById('animated-cards-container');
+        if (!container) return;
+        
+        // Remove any existing listener
+        container.removeEventListener('mousedown', handleContainerDragStart);
+        // Add new listener
+        container.addEventListener('mousedown', handleContainerDragStart);
+      }
+      
+      function handleContainerDragStart(e) {
+        // Only handle if clicking on the top card (first child)
+        const container = document.getElementById('animated-cards-container');
+        if (!container || container.children.length === 0) return;
+        
+        const topCard = container.children[0];
+        if (!topCard.contains(e.target)) return;
+        
+        // Don't start drag if clicking on the Read button or its children
+        if (e.target.closest('.animated-card-button')) {
+          return;
+        }
+        
+        isDragging = true;
+        dragStartY = e.clientY;
+        document.addEventListener('mousemove', handleDragMove);
+        document.addEventListener('mouseup', handleDragEnd);
+        
+        // Prevent text selection while dragging
+        e.preventDefault();
+      }
+      
+      function handleDragStart(e) {
+        // Don't start drag if clicking on the Read button or its children
+        if (e.target.closest('.animated-card-button')) {
+          return;
+        }
+        
+        isDragging = true;
+        dragStartY = e.clientY;
+        document.addEventListener('mousemove', handleDragMove);
+        document.addEventListener('mouseup', handleDragEnd);
+        
+        // Prevent text selection while dragging
+        e.preventDefault();
+      }
+      
+      function handleDragMove(e) {
+        if (!isDragging) return;
+        
+        const dragDistance = e.clientY - dragStartY;
+        const container = document.getElementById('animated-cards-container');
+        if (!container) return;
+        
+        // Visual feedback: slightly move the top card while dragging
+        const topCard = container.children[0];
+        if (topCard) {
+          const maxDrag = 30; // Maximum visual drag distance
+          const dragOffset = Math.max(-maxDrag, Math.min(maxDrag, dragDistance * 0.3));
+          const currentTransform = topCard.style.transform.match(/translateY\(([^)]+)\)/);
+          const baseY = currentTransform ? parseFloat(currentTransform[1]) : 12;
+          topCard.style.transition = 'none';
+          topCard.style.transform = `translateX(-50%) translateY(${baseY + dragOffset}px) scale(1)`;
+        }
+      }
+      
+      function handleDragEnd(e) {
+        if (!isDragging) return;
+        
+        const dragDistance = e.clientY - dragStartY;
+        const container = document.getElementById('animated-cards-container');
+        
+        // Reset visual feedback
+        if (container && container.children[0]) {
+          const topCard = container.children[0];
+          topCard.style.transition = '';
+          const { scale, y } = positionStyles[0];
+          topCard.style.transform = `translateX(-50%) translateY(${y}px) scale(${scale})`;
+        }
+        
+        // Trigger scroll if threshold is met
+        if (Math.abs(dragDistance) >= dragThreshold) {
+          if (dragDistance > 0) {
+            // Dragged down - scroll forward
+            handleScroll(true);
+          } else {
+            // Dragged up - scroll backward
+            handleScroll(false);
+          }
+        }
+        
+        isDragging = false;
+        document.removeEventListener('mousemove', handleDragMove);
+        document.removeEventListener('mouseup', handleDragEnd);
+      }
+      
+      function initializeAnimatedCards() {
+        const container = document.getElementById('animated-cards-container');
+        if (!container) return;
+        
+        // Initialize with first 3 projects (indices 0, 1, 2)
+        currentCardIndices = [0, 1, 2];
+        
+        // Clear container
+        container.innerHTML = '';
+        
+        // Create and append cards
+        currentCardIndices.forEach((projectIndex, displayIndex) => {
+          const cardElement = createCardElement(projectIndex, displayIndex);
+          container.appendChild(cardElement);
+        });
+        
+        // Attach drag listener to top card and setup event delegation
+        attachDragListenerToTopCard();
+        setupDragDelegation();
+        
+        // Setup scroll buttons
+        const scrollUpBtn = document.getElementById('scroll-cards-up-btn');
+        const scrollDownBtn = document.getElementById('scroll-cards-down-btn');
+        if (scrollUpBtn) {
+          scrollUpBtn.addEventListener('click', () => handleScroll(false));
+        }
+        if (scrollDownBtn) {
+          scrollDownBtn.addEventListener('click', () => handleScroll(true));
+        }
+      }
+      
+      function handleScroll(forward) {
+        if (isAnimating) return;
+        
+        isAnimating = true;
+        const container = document.getElementById('animated-cards-container');
+        if (!container) return;
+        
+        // Get current visible cards
+        const visibleCards = Array.from(container.children);
+        
+        let newProjectIndex;
+        if (forward) {
+          // Scroll forward (down arrow) - remove top card, add new at bottom
+          const lastIndex = currentCardIndices[currentCardIndices.length - 1];
+          newProjectIndex = (lastIndex + 1) % projectsData.length;
+          
+          // Remove first index, add new at end
+          currentCardIndices.shift();
+          currentCardIndices.push(newProjectIndex);
+          
+          // Animate top card out (down)
+          if (visibleCards[0]) {
+            visibleCards[0].style.transition = 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            visibleCards[0].style.transform = 'translateX(-50%) translateY(340px) scale(1)';
+            visibleCards[0].style.zIndex = '10';
+            
+            // Remove after animation
+            setTimeout(() => {
+              if (visibleCards[0] && visibleCards[0].parentNode) {
+                visibleCards[0].parentNode.removeChild(visibleCards[0]);
+              }
+            }, 1000);
+          }
+          
+          // Update positions of remaining cards (move up)
+          visibleCards.slice(1).forEach((card, index) => {
+            const { scale, y } = positionStyles[index] || positionStyles[2];
+            card.style.transition = 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            card.style.transform = `translateX(-50%) translateY(${y}px) scale(${scale})`;
+            card.style.zIndex = 3 - index;
+          });
+          
+          // Create and add new card at the bottom
+          setTimeout(() => {
+            const newCardElement = createCardElement(newProjectIndex, 2);
+            newCardElement.style.transform = 'translateX(-50%) translateY(-16px) scale(0.9)';
+            newCardElement.style.zIndex = '0';
+            container.appendChild(newCardElement);
+            
+            // Animate new card to position
+            setTimeout(() => {
+              newCardElement.style.transition = 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              const { scale, y } = positionStyles[2];
+              newCardElement.style.transform = `translateX(-50%) translateY(${y}px) scale(${scale})`;
+            }, 10);
+          }, 100);
+        } else {
+          // Scroll backward (up arrow) - remove bottom card, add new at top
+          const firstIndex = currentCardIndices[0];
+          newProjectIndex = (firstIndex - 1 + projectsData.length) % projectsData.length;
+          
+          // Remove last index, add new at beginning
+          currentCardIndices.pop();
+          currentCardIndices.unshift(newProjectIndex);
+          
+          // Animate bottom card out (up)
+          if (visibleCards[visibleCards.length - 1]) {
+            const bottomCard = visibleCards[visibleCards.length - 1];
+            bottomCard.style.transition = 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            bottomCard.style.transform = 'translateX(-50%) translateY(-60px) scale(0.85)';
+            bottomCard.style.zIndex = '0';
+            
+            // Remove after animation
+            setTimeout(() => {
+              if (bottomCard && bottomCard.parentNode) {
+                bottomCard.parentNode.removeChild(bottomCard);
+              }
+            }, 1000);
+          }
+          
+          // Update positions of remaining cards (move down)
+          visibleCards.slice(0, -1).forEach((card, index) => {
+            const { scale, y } = positionStyles[index + 1] || positionStyles[2];
+            card.style.transition = 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            card.style.transform = `translateX(-50%) translateY(${y}px) scale(${scale})`;
+            card.style.zIndex = 3 - (index + 1);
+          });
+          
+          // Create and add new card at the top
+          setTimeout(() => {
+            const newCardElement = createCardElement(newProjectIndex, 0);
+            newCardElement.style.transform = 'translateX(-50%) translateY(50px) scale(1.05)';
+            newCardElement.style.zIndex = '10';
+            container.insertBefore(newCardElement, container.firstChild);
+            
+            // Animate new card to position
+            setTimeout(() => {
+              newCardElement.style.transition = 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              const { scale, y } = positionStyles[0];
+              newCardElement.style.transform = `translateX(-50%) translateY(${y}px) scale(${scale})`;
+            }, 10);
+          }, 100);
+        }
+        
+        // Reset animation flag and re-attach drag listener
+        setTimeout(() => {
+          isAnimating = false;
+          attachDragListenerToTopCard();
+          // Event delegation is already set up, no need to re-setup
+        }, 1100);
+      }
+      
+      // Make initialize function globally available
+      window.initializeAnimatedCards = initializeAnimatedCards;
+    })();
+  </script>
+  
+  <!-- Dithering Shader Effect -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('dithering-canvas');
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      let animationId = null;
+      let time = 0;
+      
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+      }
+      
+      function hslToRgb(h, s, l) {
+        h = h % 360;
+        s = s / 100;
+        l = l / 100;
+        let r, g, b;
+        if (s === 0) {
+          r = g = b = l;
+        } else {
+          const hue2rgb = (p, q, t) => {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1/6) return p + (q - p) * 6 * t;
+            if (t < 1/2) return q;
+            if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+            return p;
+          };
+          const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+          const p = 2 * l - q;
+          const hNorm = h / 360;
+          r = hue2rgb(p, q, hNorm + 1/3);
+          g = hue2rgb(p, q, hNorm);
+          b = hue2rgb(p, q, hNorm - 1/3);
+        }
+        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+      }
+      
+      // 4x4 Bayer dithering matrix
+      const bayerMatrix = [
+        [ 0,  8,  2, 10],
+        [12,  4, 14,  6],
+        [ 3, 11,  1,  9],
+        [15,  7, 13,  5]
+      ];
+      
+      function getDitherThreshold(x, y) {
+        const matrixSize = 4;
+        const mx = x % matrixSize;
+        const my = y % matrixSize;
+        return bayerMatrix[my][mx] / 16;
+      }
+      
+      // Organic noise function for shape-like patterns
+      function noise(x, y, t) {
+        // Create complex layered noise pattern for organic shapes
+        const n1 = Math.sin(x * 1.8 + t * 0.1) * Math.cos(y * 1.8 + t * 0.08);
+        const n2 = Math.sin(x * 3.5 + y * 2.8 + t * 0.12) * 0.5;
+        const n3 = Math.cos(x * 1.2 - y * 2.2 + t * 0.1) * 0.3;
+        const n4 = Math.sin((x + y) * 1.5 + t * 0.15) * 0.2;
+        // Combine with radial component for more shape-like appearance
+        const dist = Math.sqrt(x * x + y * y);
+        const radial = Math.sin(dist * 2.5 - t * 0.08) * 0.15;
+        return (n1 + n2 + n3 + n4 + radial) * 0.45 + 0.5;
+      }
+      
+      function draw() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const colorBack = isDark ? [0, 0, 0] : hslToRgb(0, 0, 95);
+        // Always use blue color regardless of theme
+        const colorFront = hslToRgb(220, 100, 70);
+        
+        const imageData = ctx.createImageData(canvas.width, canvas.height);
+        const data = imageData.data;
+        const pxSize = 3;
+        const scale = 0.8;
+        const speed = 0.1;
+        
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        for (let y = 0; y < canvas.height; y += pxSize) {
+          for (let x = 0; x < canvas.width; x += pxSize) {
+            // Normalized coordinates (-1 to 1)
+            const nx = ((x - centerX) / canvas.width) * 2;
+            const ny = ((y - centerY) / canvas.height) * 2;
+            
+            // Apply scale
+            const sx = nx / scale;
+            const sy = ny / scale;
+            
+            // Generate organic noise pattern
+            const noiseValue = noise(sx, sy, time * speed);
+            
+            // Get dither threshold from Bayer matrix
+            const ditherThreshold = getDitherThreshold(Math.floor(x / pxSize), Math.floor(y / pxSize));
+            
+            // Combine noise with dither pattern (more weight on noise for organic feel)
+            const threshold = noiseValue * 0.65 + ditherThreshold * 0.35;
+            const useFront = threshold > 0.5;
+            
+            const r = useFront ? colorFront[0] : colorBack[0];
+            const g = useFront ? colorFront[1] : colorBack[1];
+            const b = useFront ? colorFront[2] : colorBack[2];
+            
+            // Fill pixel block
+            for (let py = 0; py < pxSize && y + py < canvas.height; py++) {
+              for (let px = 0; px < pxSize && x + px < canvas.width; px++) {
+                const idx = ((y + py) * canvas.width + (x + px)) * 4;
+                data[idx] = r;
+                data[idx + 1] = g;
+                data[idx + 2] = b;
+                data[idx + 3] = 255;
+              }
+            }
+          }
+        }
+        
+        ctx.putImageData(imageData, 0, 0);
+        time += 1;
+        animationId = requestAnimationFrame(draw);
+      }
+      
+      function init() {
+        resizeCanvas();
+        if (animationId) cancelAnimationFrame(animationId);
+        draw();
+      }
+      
+      window.addEventListener('DOMContentLoaded', init);
+      window.addEventListener('resize', function() {
+        resizeCanvas();
+      });
+      
+      // Re-draw on theme change
+      const observer = new MutationObserver(function() {
+        // Theme changed, will update in next frame (draw function checks theme)
+      });
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+      });
+    })();
+  </script>
+  
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log("THREE.js script starting - NO CUBE VERSION");
+      
+      const container = document.getElementById("model-container");
+      if (!container) {
+        console.error("Container not found!");
+        return;
+      }
+      
+      const scene = new THREE.Scene();
+      // NO background color - transparent
+
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.set(0, 0, 2);
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setClearColor(0x000000, 0); // Fully transparent
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+      
+      console.log("Renderer created with transparent background");
+
+      // Lights
+      scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(5, 5, 5);
+      scene.add(light);
+
+      // NO CUBE - only load the model
+      const loader = new THREE.GLTFLoader();
+      let model;
+
+      console.log("Loading model from: /assets/models/clouds.glb");
+
+      loader.load(
+        "/assets/models/clouds.glb",
+        function(gltf) {
+          model = gltf.scene;
+          
+          // Get model size and center it
+          const box = new THREE.Box3().setFromObject(model);
+          const size = box.getSize(new THREE.Vector3());
+          const center = box.getCenter(new THREE.Vector3());
+          
+          // Center the model at origin
+          model.position.sub(center);
+          
+          // Scale model to be about 2 units in size
+          const maxSize = Math.max(size.x, size.y, size.z);
+          const scaleFactor = 2 / maxSize;
+          model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+          
+          console.log("✓ Model loaded and centered!");
+          console.log("  Original size:", size.x.toFixed(2), size.y.toFixed(2), size.z.toFixed(2));
+          console.log("  Scale factor:", scaleFactor.toFixed(2));
+          
+          scene.add(model);
+        },
+        function(progress) {
+          if (progress.total > 0) {
+            console.log("Loading:", Math.round((progress.loaded / progress.total * 100)) + '%');
+          }
+        },
+        function(error) {
+          console.error("Error loading model:", error);
+        }
+      );
+
+      // Mouse drag controls
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+      
+      container.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+        container.style.cursor = 'grabbing';
+      });
+      
+      container.addEventListener('mousemove', function(e) {
+        if (isDragging && model) {
+          const deltaX = e.clientX - previousMousePosition.x;
+          const deltaY = e.clientY - previousMousePosition.y;
+          
+          model.rotation.y += deltaX * 0.01;
+          model.rotation.x += deltaY * 0.01;
+          
+          previousMousePosition = { x: e.clientX, y: e.clientY };
+        }
+      });
+      
+      container.addEventListener('mouseup', function() {
+        isDragging = false;
+        container.style.cursor = 'grab';
+      });
+      
+      container.addEventListener('mouseleave', function() {
+        isDragging = false;
+        container.style.cursor = 'grab';
+      });
+      // Touch support for mobile
+      container.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      });
+      
+      container.addEventListener('touchmove', function(e) {
+        if (isDragging && model && e.touches.length === 1) {
+          e.preventDefault();
+          const deltaX = e.touches[0].clientX - previousMousePosition.x;
+          const deltaY = e.touches[0].clientY - previousMousePosition.y;
+          
+          model.rotation.y += deltaX * 0.01;
+          model.rotation.x += deltaY * 0.01;
+          
+          previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      });
+      
+      container.addEventListener('touchend', function() {
+        isDragging = false;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener("resize", function() {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    });
+  </script>
+
+  </body>
+  
+</html>

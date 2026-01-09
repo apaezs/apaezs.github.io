@@ -1,0 +1,51 @@
+# Site settings
+url: https://apaezs.github.io
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Site information (used for SEO + link previews)
+title: Alejandro Paez
+tagline: Embedded Systems • RTOS • FPGA • Photonics
+description: >
+  Electrical & Computer Engineering student at the University of Florida,
+  focused on embedded systems, real-time operating systems, FPGA/ASIC design,
+  and photonic integrated circuits.
+
+author:
+  name: Alejandro Paez
+
+# SEO configuration
+seo:
+  type: Person
+  name: Alejandro Paez
+
+# Theme
+theme: minima
+
+# Minima configuration (disable blog behavior)
+minima:
+  skin: classic
+  show_excerpts: false
+  social_links: []
+
+# Disable layouts globally (prevents blog/nav injection)
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: null
+
+# Disable RSS/blog
+show_rss: false
+
+# Collections (non-blog)
+collections:
+  news:
+    output: true
+  projects:
+    output: true

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Alejandro Paez | G8RTOS Bowl</title>
+    <meta name="author" content="Alejandro Paez" />
+    <meta name="description" content="A real-time American football game built from scratch on a TI Tiva microcontroller using a custom preemptive RTOS" />
+    <meta name="keywords" content="embedded systems, RTOS, microcontroller, TI Tiva, real-time operating system" />
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+    <!-- Styles -->
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://apaezs.github.io/projects/1_project/">
+    
+    <!-- Dark Mode - Initialize theme before rendering -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      })();
+    </script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+    <style>
+      /* Project Page Layout */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Courier New', monospace;
+        background: white;
+        color: black;
+        overflow-x: hidden;
+      }
+      
+      [data-theme="dark"] body {
+        background: black;
+        color: white;
+      }
+      
+      .project-container {
+        min-height: 100vh;
+        padding: 4rem 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+      }
+      
+      .project-nav {
+        margin-bottom: 3rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .project-nav {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-nav-links {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .project-nav-links a {
+        color: inherit;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+      
+      .project-nav-links a:hover {
+        opacity: 0.7;
+      }
+      
+      .theme-toggle-btn {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        z-index: 1000;
+        color: inherit;
+      }
+      
+      .theme-toggle-btn:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .theme-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .theme-toggle-btn svg {
+        display: block;
+      }
+      
+      .project-header {
+        margin-bottom: 3rem;
+      }
+      
+      .project-header h1 {
+        font-size: 1.5rem;
+        font-weight: normal;
+        margin-bottom: 1rem;
+      }
+      
+      .project-header p {
+        font-size: 1rem;
+        margin: 0;
+        opacity: 0.7;
+        line-height: 1.6;
+      }
+      
+      .project-content {
+        line-height: 1.8;
+      }
+      
+      .project-content h2 {
+        font-size: 1.25rem;
+        font-weight: normal;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .project-content h3 {
+        font-size: 1.125rem;
+        font-weight: normal;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .project-content h4 {
+        font-size: 1rem;
+        font-weight: normal;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .project-content p {
+        margin-bottom: 1rem;
+      }
+      
+      .project-content ul, .project-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+      }
+      
+      .project-content li {
+        margin-bottom: 0.5rem;
+      }
+      
+      .project-content hr {
+        border: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+      }
+      
+      [data-theme="dark"] .project-content hr {
+        border-top-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-content a {
+        color: inherit;
+        text-decoration: underline;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+      }
+      
+      .project-content a:hover {
+        opacity: 1;
+      }
+      
+      .project-content strong {
+        font-weight: normal;
+      }
+      
+      .project-content code {
+        font-family: 'Courier New', monospace;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+      }
+      
+      [data-theme="dark"] .project-content code {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      
+      [data-theme="dark"] .project-content img {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-image-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+      
+      .project-image-grid img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      @media (max-width: 768px) {
+        .project-container {
+          padding: 2rem 1rem;
+        }
+        
+        .project-header h1 {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- Body -->
+  <body>
+
+    <div class="project-container">
+      <!-- Theme toggle button -->
+      <button
+        id="portfolio-theme-toggle"
+        class="theme-toggle-btn"
+        aria-label="Toggle theme"
+      >
+        <svg id="theme-icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg id="theme-icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+
+      <!-- Navigation -->
+      <div class="project-nav">
+        <div class="project-nav-links">
+          <a href="/">Home</a>
+          <a href="/projects/">Projects</a>
+          <a href="https://github.com/apaezs" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="mailto:apaezsansonetti@ufl.edu">Email</a>
+          <a href="https://www.linkedin.com/in/alejandropaezs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="project-header">
+        <h1>G8RTOS Bowl</h1>
+        <p>A real-time American football game built from scratch on a TI Tiva microcontroller using a custom preemptive RTOS, featuring concurrent gameplay, graphics, audio, and input handling.</p>
+      </div>
+
+      <!-- Content -->
+      <div class="project-content">
+        <h2 id="project-overview">Project Overview</h2>
+        <p>G8RTOS Bowl was my final project for the course EEL 4745: Microprocessor Applications 2 (RTOS). It combines a custom real-time operating system with a complete, playable American football game. The project runs on a TI Tiva™ TM4C123 LaunchPad + Multimod and demonstrates real-world RTOS concepts such as preemptive scheduling, semaphores, FIFOs, periodic and aperiodic events, and dynamic threads, all under real timing and hardware constraints.</p>
+
+        <p>The game includes animated players, route-based AI movement, real-time collision detection, joystick-controlled gameplay, sound effects, and a full football state machine (downs, drives, scoring, kickoffs, turnovers). Watch my demo on <a href="https://www.youtube.com/watch?v=hMlsVaNh7H0" target="_blank" rel="noopener noreferrer">YouTube</a>!</p>
+
+        <div style="margin: 2rem 0; text-align: center;">
+          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 800px; margin: 0 auto;">
+            <iframe 
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+              src="https://www.youtube.com/embed/hMlsVaNh7H0" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <hr>
+
+        <h2 id="hardware--platform">Hardware & Platform</h2>
+        <ul>
+          <li><strong>MCU:</strong> TI TM4C123GH6PM (ARM Cortex-M4F)</li>
+          <li><strong>Display:</strong> ST7789 LCD (SPI)</li>
+          <li><strong>Inputs:</strong> Analog joystick + push buttons (GPIO + I2C expander)</li>
+          <li><strong>Audio:</strong> UART-based sound trigger system</li>
+          <li><strong>Peripherals Used:</strong> SPI, UART, ADC, GPIO, I2C, timers, interrupts</li>
+        </ul>
+
+        <hr>
+
+        <h2 id="system-architecture">System Architecture</h2>
+        
+        <h3 id="custom-rtos-built-from-scratch-g8rtos">Custom RTOS Built from Scratch (G8RTOS)</h3>
+        <ul>
+          <li>Preemptive, priority-based scheduler</li>
+          <li>Dynamic thread creation and termination</li>
+          <li>Blocking, sleeping, and yielding threads</li>
+          <li>Spin-lock semaphores for shared resources (SPI, UART, I/O)</li>
+          <li>FIFO-based inter-process communication</li>
+          <li>Periodic, aperiodic (interrupt-driven), and background threads</li>
+        </ul>
+
+        <h3 id="thread-model">Thread Model</h3>
+        
+        <h4>Background / System Threads</h4>
+        <ul>
+          <li>Idle thread</li>
+          <li>Periodic screen redraw thread</li>
+        </ul>
+
+        <h4>Gameplay Threads (Dynamic)</h4>
+        <ul>
+          <li>QB, WR, DB behavior threads</li>
+          <li>Ball physics thread</li>
+          <li>Passing, tackling, touchdown, and incomplete-pass handlers</li>
+          <li>Game state transition threads (kickoff, play select, fourth down, end game)</li>
+        </ul>
+
+        <h4>Interrupt-Driven Threads</h4>
+        <ul>
+          <li>GPIO button interrupts</li>
+          <li>Joystick press interrupts</li>
+        </ul>
+
+        <p>Threads are created and killed dynamically to match gameplay state, minimizing CPU idle time and keeping the system responsive.</p>
+
+        <hr>
+
+        <h2 id="gameplay-features">Gameplay Features</h2>
+        <ul>
+          <li>Route-based receiver AI (slant, go, curl, in, out, post, corner)</li>
+          <li>Joystick-controlled quarterback and ball carrier</li>
+          <li>Real-time collision detection (DB vs WR/QB)</li>
+          <li>Football logic: downs, line of scrimmage, end zones, touchdowns, field goals, turnovers, drives</li>
+          <li>Animated sprites with flicker-free rendering</li>
+          <li>Audio cues triggered by game events (touchdown, tackle, incomplete, win/loss)</li>
+          <li>Custom bitmap sprites for players, UI, and menus</li>
+        </ul>
+
+        <hr>
+
+        <h2 id="concurrency--synchronization">Concurrency & Synchronization</h2>
+        <ul>
+          <li>Semaphores protect SPI, UART, joystick, and button access</li>
+          <li>FIFOs send data between threads</li>
+          <li>Periodic events handle rendering every 100 ms</li>
+          <li>Aperiodic events respond instantly to hardware interrupts</li>
+        </ul>
+
+        <hr>
+
+        <h2 id="tech-stack">Tech Stack</h2>
+        <ul>
+          <li><strong>Language:</strong> C</li>
+          <li><strong>RTOS:</strong> Custom G8RTOS</li>
+          <li><strong>Toolchain:</strong> TI Code Composer Studio</li>
+          <li><strong>Drivers:</strong> Custom Multimod peripheral drivers</li>
+        </ul>
+
+        <hr>
+
+        <h2 id="screenshots">Screenshots</h2>
+        <div class="project-image-grid">
+          <img src="/assets/img/gameplay.png" alt="Gameplay screenshot">
+          <img src="/assets/img/plays.png" alt="Plays selection screenshot">
+          <img src="/assets/img/start.png" alt="Start screen screenshot">
+          <img src="/assets/img/home.png" alt="Home screen screenshot">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('portfolio-theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        
+        function updateThemeIcon() {
+          if (!sunIcon || !moonIcon) return;
+          
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          if (isDark) {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+          } else {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+          }
+        }
+        
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const currentTheme = localStorage.getItem('theme') || document.documentElement.getAttribute('data-theme') || 'dark';
+            
+            try {
+              if (typeof toggleTheme === 'function') {
+                toggleTheme(currentTheme);
+              } else {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+              }
+            } catch (error) {
+              const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+              document.documentElement.setAttribute('data-theme', newTheme);
+              localStorage.setItem('theme', newTheme);
+            }
+            
+            setTimeout(updateThemeIcon, 150);
+          });
+          
+          updateThemeIcon();
+          
+          const observer = new MutationObserver(function() {
+            updateThemeIcon();
+          });
+          observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+          });
+        }
+      });
+    </script>
+
+  </body>
+</html>
